@@ -1,0 +1,121 @@
+{
+  "description": "Talent Digger CloudBase 数据库集合初始化结构",
+  "collections": [
+    {
+      "name": "users",
+      "description": "用户信息",
+      "indexes": [{ "field": "openid", "unique": true }],
+      "schema": {
+        "_id": "string (auto)",
+        "openid": "string - 微信 openid",
+        "nickname": "string - 用户昵称",
+        "avatar": "string - 头像 URL",
+        "isGuest": "boolean - 是否游客",
+        "createdAt": "number - 注册时间戳",
+        "updatedAt": "number - 更新时间戳"
+      }
+    },
+    {
+      "name": "tests",
+      "description": "测评定义",
+      "schema": {
+        "_id": "string (auto)",
+        "name": "string - 测评名称",
+        "description": "string - 测评描述",
+        "dimensions": "array - 维度列表 [{key, name, description}]",
+        "questionCount": "number - 题目数量",
+        "estimatedMinutes": "number - 预估时长",
+        "category": "string - 分类: talent/interest/personality",
+        "status": "string - 状态: published/draft",
+        "createdAt": "number"
+      }
+    },
+    {
+      "name": "questions",
+      "description": "测评题目",
+      "indexes": [{ "field": "testId" }, { "field": "order" }],
+      "schema": {
+        "_id": "string (auto)",
+        "testId": "string - 所属测评 ID",
+        "order": "number - 题号排序",
+        "content": "string - 题目内容",
+        "options": "array - 选项列表 [{label, text}]",
+        "scoring": "object - 各维度得分映射 {dimensionKey: score}",
+        "createdAt": "number"
+      }
+    },
+    {
+      "name": "results",
+      "description": "测评结果",
+      "indexes": [{ "field": "userId" }, { "field": "testId" }],
+      "schema": {
+        "_id": "string (auto)",
+        "userId": "string - 用户 openid",
+        "testId": "string - 测评 ID",
+        "scores": "object - 维度得分 {dimensionKey: score}",
+        "answers": "object - 用户答案 {questionId: selectedOptionIndex}",
+        "reportGenerated": "boolean - 报告是否已生成",
+        "completedAt": "number - 完成时间戳"
+      }
+    },
+    {
+      "name": "career_library",
+      "description": "职业库",
+      "schema": {
+        "_id": "string (auto)",
+        "name": "string - 职业名称",
+        "category": "string - 职业大类",
+        "description": "string - 职业描述",
+        "dimensionTags": "array - 关联维度标签",
+        "requiredSkills": "array - 所需技能",
+        "educationLevel": "string - 学历要求",
+        "salaryRange": "string - 薪资范围",
+        "suggestions": "string - 职业建议",
+        "createdAt": "number"
+      }
+    },
+    {
+      "name": "career_plans",
+      "description": "职业规划数据",
+      "indexes": [{ "field": "userId" }],
+      "schema": {
+        "_id": "string (auto)",
+        "userId": "string - 用户 openid",
+        "clover": "object - 三叶草数据 {interests, abilities, values, intersection}",
+        "highlights": "array - 高光时刻列表",
+        "feedback": "array - 外界正向反馈",
+        "idealState": "string - 理想状态描述",
+        "circleAnalysis": "object - 三圈法 {passion, talent, demand}",
+        "suggestions": "array - 生成的建议",
+        "positioningMap": "string - 个人定位描述",
+        "createdAt": "number"
+      }
+    },
+    {
+      "name": "growth_plans",
+      "description": "个人成长计划",
+      "indexes": [{ "field": "userId" }],
+      "schema": {
+        "_id": "string (auto)",
+        "userId": "string - 用户 openid",
+        "title": "string - 计划标题",
+        "goals": "array - 目标列表 [{id, title, description, period, status, tasks, createdAt, targetDate}]",
+        "streak": "number - 连续完成天数",
+        "createdAt": "number",
+        "updatedAt": "number"
+      }
+    },
+    {
+      "name": "admin_users",
+      "description": "管理员用户",
+      "indexes": [{ "field": "username", "unique": true }],
+      "schema": {
+        "_id": "string (auto)",
+        "username": "string - 管理员账号",
+        "password": "string - 密码（需加密）",
+        "role": "string - 角色: super_admin/admin",
+        "createdAt": "number"
+      }
+    }
+  ]
+}

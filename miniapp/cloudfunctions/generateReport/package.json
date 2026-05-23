@@ -1,0 +1,9 @@
+{
+  "name": "generateReport",
+  "version": "1.0.0",
+  "description": "生成测评报告",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest"
+  }
+}

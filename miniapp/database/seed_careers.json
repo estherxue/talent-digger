@@ -1,0 +1,152 @@
+[
+  {
+    "name": "数据分析师",
+    "category": "技术/数据",
+    "description": "负责收集、处理和分析数据，为企业决策提供数据支持。",
+    "dimensionTags": ["logic", "observation"],
+    "requiredSkills": ["SQL", "Python", "统计学", "数据可视化"],
+    "educationLevel": "本科",
+    "salaryRange": "15-35K",
+    "suggestions": "逻辑推理和观察感知能力突出，适合从事数据分析相关工作。建议学习数据分析工具和统计学知识。"
+  },
+  {
+    "name": "产品经理",
+    "category": "产品/设计",
+    "description": "负责产品的规划、设计和迭代，协调技术、设计和运营团队。",
+    "dimensionTags": ["logic", "communication", "execution", "leadership"],
+    "requiredSkills": ["需求分析", "项目管理", "用户研究", "原型设计"],
+    "educationLevel": "本科",
+    "salaryRange": "20-45K",
+    "suggestions": "分析能力和沟通能力兼备，适合产品方向。建议积累行业经验和产品方法论。"
+  },
+  {
+    "name": "软件工程师",
+    "category": "技术/研发",
+    "description": "设计、开发和维护软件系统，解决技术问题。",
+    "dimensionTags": ["logic", "execution", "learning"],
+    "requiredSkills": ["编程", "算法", "系统设计", "问题排查"],
+    "educationLevel": "本科",
+    "salaryRange": "18-40K",
+    "suggestions": "逻辑推理和学习适应能力突出，编程方向是天然选择。持续学习新技术是关键。"
+  },
+  {
+    "name": "UI/UX设计师",
+    "category": "设计/创意",
+    "description": "负责产品的用户界面和用户体验设计。",
+    "dimensionTags": ["creativity", "observation", "empathy"],
+    "requiredSkills": ["设计软件", "用户研究", "交互设计", "视觉传达"],
+    "educationLevel": "本科",
+    "salaryRange": "15-35K",
+    "suggestions": "创造力和同理心突出，设计方向能很好发挥你的天赋。审美能力和用户思维需要持续培养。"
+  },
+  {
+    "name": "心理咨询师",
+    "category": "教育/咨询",
+    "description": "为个人提供心理评估、咨询和治疗服务。",
+    "dimensionTags": ["empathy", "communication", "observation"],
+    "requiredSkills": ["心理学理论", "沟通技巧", "情绪管理", "案例分析"],
+    "educationLevel": "硕士",
+    "salaryRange": "10-25K",
+    "suggestions": "同理心和沟通能力突出，心理咨询方向能让你的天赋得到最好的发挥。需要专业资质认证。"
+  },
+  {
+    "name": "项目经理",
+    "category": "管理/运营",
+    "description": "负责项目的规划、执行和交付，管理团队和资源。",
+    "dimensionTags": ["leadership", "execution", "communication", "resilience"],
+    "requiredSkills": ["项目管理", "沟通协调", "风险管理", "团队领导"],
+    "educationLevel": "本科",
+    "salaryRange": "20-45K",
+    "suggestions": "领导力和执行力突出，项目管理是理想的职业方向。建议考取PMP等相关认证。"
+  },
+  {
+    "name": "教师/培训师",
+    "category": "教育/培训",
+    "description": "传授知识、技能，引导他人学习和成长。",
+    "dimensionTags": ["communication", "empathy", "learning"],
+    "requiredSkills": ["专业知识", "表达能力", "教学设计", "课堂管理"],
+    "educationLevel": "本科及以上",
+    "salaryRange": "8-25K",
+    "suggestions": "沟通和共情能力突出，教育方向是发挥天赋的好选择。需要持续提升专业深度。"
+  },
+  {
+    "name": "市场营销经理",
+    "category": "市场/营销",
+    "description": "制定和实施市场营销策略，提升品牌知名度和销量。",
+    "dimensionTags": ["creativity", "communication", "leadership"],
+    "requiredSkills": ["市场分析", "品牌策划", "数字营销", "团队管理"],
+    "educationLevel": "本科",
+    "salaryRange": "18-40K",
+    "suggestions": "创造力和沟通能力突出，市场营销能充分发挥你的创意和表达天赋。"
+  },
+  {
+    "name": "科研人员",
+    "category": "学术/研究",
+    "description": "从事科学研究工作，探索未知领域并发表学术成果。",
+    "dimensionTags": ["logic", "memory", "learning", "observation"],
+    "requiredSkills": ["研究方法", "论文写作", "实验设计", "数据分析"],
+    "educationLevel": "博士",
+    "salaryRange": "15-30K",
+    "suggestions": "逻辑推理和学习能力突出，科研方向适合深入探索未知领域。需要较强的学术背景。"
+  },
+  {
+    "name": "创业/自由职业者",
+    "category": "创业/商业",
+    "description": "自主创业或提供独立专业服务，拥有高度自由度。",
+    "dimensionTags": ["leadership", "resilience", "execution", "creativity"],
+    "requiredSkills": ["商业判断", "资源整合", "风控管理", "自我驱动"],
+    "educationLevel": "不限",
+    "salaryRange": "波动较大",
+    "suggestions": "领导力和抗压能力突出，创业方向能最大程度发挥你的综合天赋。需要做好风险准备。"
+  },
+  {
+    "name": "文案/内容创作者",
+    "category": "传媒/内容",
+    "description": "创作文字、视频或音频内容，通过内容平台影响受众。",
+    "dimensionTags": ["creativity", "communication", "learning"],
+    "requiredSkills": ["写作", "内容策划", "排版编辑", "运营推广"],
+    "educationLevel": "本科",
+    "salaryRange": "10-30K",
+    "suggestions": "创造力和表达能力突出，内容创作能让你的想法影响更多人。需要持续输出高质量内容。"
+  },
+  {
+    "name": "人力资源经理",
+    "category": "管理/行政",
+    "description": "负责招聘、培训、绩效管理等人力资源工作。",
+    "dimensionTags": ["communication", "empathy", "leadership", "observation"],
+    "requiredSkills": ["招聘面试", "员工关系", "劳动法规", "组织发展"],
+    "educationLevel": "本科",
+    "salaryRange": "15-35K",
+    "suggestions": "沟通和共情能力突出，人力资源管理能很好地发挥你的人际天赋。建议考取人力资源管理师证书。"
+  },
+  {
+    "name": "咨询顾问",
+    "category": "咨询/服务",
+    "description": "为企业提供战略、运营或管理咨询服务。",
+    "dimensionTags": ["logic", "communication", "learning", "resilience"],
+    "requiredSkills": ["战略思维", "分析框架", "表达呈现", "客户管理"],
+    "educationLevel": "硕士",
+    "salaryRange": "25-60K",
+    "suggestions": "逻辑分析能力突出，咨询行业能快速积累经验和知识。需要较强的学习和抗压能力。"
+  },
+  {
+    "name": "运营经理",
+    "category": "运营/管理",
+    "description": "负责产品或业务的日常运营，优化流程和提升效率。",
+    "dimensionTags": ["execution", "observation", "learning"],
+    "requiredSkills": ["数据分析", "流程优化", "用户运营", "问题解决"],
+    "educationLevel": "本科",
+    "salaryRange": "15-35K",
+    "suggestions": "执行力和观察力突出，运营方向需要持续优化细节和流程。从数据中发现问题并推动解决。"
+  },
+  {
+    "name": "销售经理",
+    "category": "销售/业务",
+    "description": "开发和维护客户关系，完成销售目标。",
+    "dimensionTags": ["communication", "resilience", "execution"],
+    "requiredSkills": ["商务谈判", "客户开发", "关系维护", "市场洞察"],
+    "educationLevel": "本科",
+    "salaryRange": "15-50K",
+    "suggestions": "沟通和抗压能力突出，销售方向能让你的社交天赋得到最好回报。需要持续的自我驱动。"
+  }
+]

@@ -1,0 +1,292 @@
+{
+  "testId": "test_talent_compass",
+  "description": "天赋罗盘测试题目 - 每题评估多个维度",
+  "questions": [
+    {
+      "order": 1,
+      "content": "当面对一个陌生的复杂任务时，你的第一反应通常是？",
+      "options": [
+        {"label": "A", "text": "仔细分析任务结构，制定详细的执行计划"},
+        {"label": "B", "text": "边做边摸索，在实践中找到最佳方法"},
+        {"label": "C", "text": "先观察别人的做法，模仿学习"},
+        {"label": "D", "text": "凭直觉和灵感直接上手"}
+      ],
+      "scoring": {"logic":3,"execution":2,"learning":2,"creativity":2}
+    },
+    {
+      "order": 2,
+      "content": "团队开会时，你更倾向于？",
+      "options": [
+        {"label": "A", "text": "积极表达自己的观点，引导讨论方向"},
+        {"label": "B", "text": "认真倾听，在关键点上提出深刻的见解"},
+        {"label": "C", "text": "帮大家梳理思路，总结形成共识"},
+        {"label": "D", "text": "观察每个人的反应和团队氛围"}
+      ],
+      "scoring": {"communication":3,"leadership":2,"observation":2,"empathy":1}
+    },
+    {
+      "order": 3,
+      "content": "学习一项新技能时，你更偏好哪种方式？",
+      "options": [
+        {"label": "A", "text": "系统地学习理论，弄清楚背后的原理"},
+        {"label": "B", "text": "直接动手实践，边做边学"},
+        {"label": "C", "text": "找个师傅或教程一步步跟着做"},
+        {"label": "D", "text": "自己尝试创造性的用法"}
+      ],
+      "scoring": {"logic":2,"learning":3,"execution":2,"creativity":2}
+    },
+    {
+      "order": 4,
+      "content": "deadline 快到了，你的状态是？",
+      "options": [
+        {"label": "A", "text": "压力越大效率越高，能爆发出惊人的产出"},
+        {"label": "B", "text": "开始焦虑，但能强迫自己按时完成"},
+        {"label": "C", "text": "早就做好了计划，所以不慌不忙"},
+        {"label": "D", "text": "容易乱了阵脚，需要寻求帮助"}
+      ],
+      "scoring": {"resilience":3,"execution":2,"logic":1}
+    },
+    {
+      "order": 5,
+      "content": "在人群中，你的角色通常是？",
+      "options": [
+        {"label": "A", "text": "活跃气氛，带动大家的情绪"},
+        {"label": "B", "text": "观察每个人的特点，适时给出建议"},
+        {"label": "C", "text": "默默跟着大家一起参与就好"},
+        {"label": "D", "text": "更愿意和少数人深入交流"}
+      ],
+      "scoring": {"communication":3,"observation":2,"empathy":2,"leadership":1}
+    },
+    {
+      "order": 6,
+      "content": "对于数字、图表和逻辑推理题，你感觉？",
+      "options": [
+        {"label": "A", "text": "非常喜欢，天生对这种东西敏感"},
+        {"label": "B", "text": "还好，用心能做对大部分"},
+        {"label": "C", "text": "有些吃力，需要多花时间"},
+        {"label": "D", "text": "头大，能躲就躲"}
+      ],
+      "scoring": {"logic":3,"observation":1,"memory":1}
+    },
+    {
+      "order": 7,
+      "content": "朋友遇到困难向你倾诉时，你通常会？",
+      "options": [
+        {"label": "A", "text": "耐心倾听，感受到对方的情绪并给予安慰"},
+        {"label": "B", "text": "直接分析问题，给出解决方案"},
+        {"label": "C", "text": "讲讲自己的类似经历，让对方感觉被理解"},
+        {"label": "D", "text": "带对方做些开心的事，帮忙转移注意力"}
+      ],
+      "scoring": {"empathy":3,"communication":2,"logic":1,"creativity":1}
+    },
+    {
+      "order": 8,
+      "content": "对于细节你是否敏感？",
+      "options": [
+        {"label": "A", "text": "非常敏感，一眼就能发现细微的不对"},
+        {"label": "B", "text": "比较注意细节，但不会过度纠结"},
+        {"label": "C", "text": "有时能注意到，但经常忽略"},
+        {"label": "D", "text": "更关注大局，细节交给别人处理"}
+      ],
+      "scoring": {"observation":3,"execution":2}
+    },
+    {
+      "order": 9,
+      "content": "领导让你组织一个集体活动，你的第一反应是？",
+      "options": [
+        {"label": "A", "text": "兴奋！正好可以发挥组织才能"},
+        {"label": "B", "text": "立即开始规划时间线和分工"},
+        {"label": "C", "text": "先征求其他人的意见和想法"},
+        {"label": "D", "text": "有些紧张，担心做不好"}
+      ],
+      "scoring": {"leadership":3,"execution":2,"communication":1}
+    },
+    {
+      "order": 10,
+      "content": "面对变化和新情况，你通常？",
+      "options": [
+        {"label": "A", "text": "很快适应，甚至享受变化带来的新鲜感"},
+        {"label": "B", "text": "需要一点时间来调整，之后就没问题了"},
+        {"label": "C", "text": "会比较纠结，喜欢稳定的环境"},
+        {"label": "D", "text": "很容易焦虑，需要他人的支持"}
+      ],
+      "scoring": {"learning":3,"resilience":2}
+    },
+    {
+      "order": 11,
+      "content": "你更喜欢的工作方式是？",
+      "options": [
+        {"label": "A", "text": "独立完成任务，专注于自己的节奏"},
+        {"label": "B", "text": "团队合作，享受协作的过程"},
+        {"label": "C", "text": "领导团队，统筹全局"},
+        {"label": "D", "text": "独立负责一部分，定期和团队对齐"}
+      ],
+      "scoring": {"execution":2,"communication":2,"leadership":3}
+    },
+    {
+      "order": 12,
+      "content": "对于新鲜事物，你的态度是？",
+      "options": [
+        {"label": "A", "text": "非常好奇，会主动探索和尝试"},
+        {"label": "B", "text": "感兴趣，如果有人引导会更积极"},
+        {"label": "C", "text": "先观望，确定有用后再投入"},
+        {"label": "D", "text": "比较保守，倾向于使用熟悉的东西"}
+      ],
+      "scoring": {"learning":3,"creativity":2}
+    },
+    {
+      "order": 13,
+      "content": "你能很快记住别人的名字和相貌吗？",
+      "options": [
+        {"label": "A", "text": "很容易记住，哪怕只见过一次"},
+        {"label": "B", "text": "一般能记住，偶尔会搞混"},
+        {"label": "C", "text": "需要多见几次才能记住"},
+        {"label": "D", "text": "经常忘记，有点脸盲"}
+      ],
+      "scoring": {"memory":3,"observation":2}
+    },
+    {
+      "order": 14,
+      "content": "你更喜欢和什么样的人一起工作？",
+      "options": [
+        {"label": "A", "text": "能力强效率高的，可以学到东西"},
+        {"label": "B", "text": "有创意点子多的，能激发灵感"},
+        {"label": "C", "text": "好沟通有默契的，相处舒服"},
+        {"label": "D", "text": "有凝聚力让人有安全感的"}
+      ],
+      "scoring": {"learning":2,"creativity":2,"communication":2,"empathy":2}
+    },
+    {
+      "order": 15,
+      "content": "遇到和自己看法完全相反的观点时？",
+      "options": [
+        {"label": "A", "text": "理性讨论，试着理解对方的逻辑"},
+        {"label": "B", "text": "保持礼貌，但坚持自己的立场"},
+        {"label": "C", "text": "反思自己是不是有考虑不周的地方"},
+        {"label": "D", "text": "尽量避免争论，和谐最重要"}
+      ],
+      "scoring": {"logic":2,"communication":3,"empathy":2,"resilience":1}
+    },
+    {
+      "order": 16,
+      "content": "你对创造性活动的感受是？",
+      "options": [
+        {"label": "A", "text": "热爱创造，喜欢绘画/写作/设计等"},
+        {"label": "B", "text": "有时间愿意尝试，有创造力但不用"},
+        {"label": "C", "text": "欣赏创造力，但自己不擅长"},
+        {"label": "D", "text": "更喜欢按规则办事，创造性不重要"}
+      ],
+      "scoring": {"creativity":3,"learning":1}
+    },
+    {
+      "order": 17,
+      "content": "当有人当面批评你的工作时？",
+      "options": [
+        {"label": "A", "text": "冷静接受，分析批评是否有道理"},
+        {"label": "B", "text": "会感到不舒服，但努力保持专业"},
+        {"label": "C", "text": "解释自己的思路，但容易情绪化"},
+        {"label": "D", "text": "很受打击，影响之后的工作状态"}
+      ],
+      "scoring": {"resilience":3,"logic":2,"communication":2}
+    },
+    {
+      "order": 18,
+      "content": "你认为自己在哪方面比较突出？",
+      "options": [
+        {"label": "A", "text": "能理解复杂的概念并准确传达给别人"},
+        {"label": "B", "text": "能捕捉到别人注意不到的细节"},
+        {"label": "C", "text": "想出的点子和方案经常让人眼前一亮"},
+        {"label": "D", "text": "能感知他人的情绪并做出妥帖的回应"}
+      ],
+      "scoring": {"logic":3,"observation":3,"creativity":3,"empathy":3}
+    },
+    {
+      "order": 19,
+      "content": "做重要决定时，你主要依赖？",
+      "options": [
+        {"label": "A", "text": "理性的分析和数据"},
+        {"label": "B", "text": "直觉和内心的声音"},
+        {"label": "C", "text": "参考他人的经验和建议"},
+        {"label": "D", "text": "权衡利弊后做折中选择"}
+      ],
+      "scoring": {"logic":3,"creativity":2,"communication":1}
+    },
+    {
+      "order": 20,
+      "content": "你是否经常主动设定并完成目标？",
+      "options": [
+        {"label": "A", "text": "经常设定目标，并且大多数都能完成"},
+        {"label": "B", "text": "会设定目标，但执行力忽高忽低"},
+        {"label": "C", "text": "偶尔设定，看心情和状态"},
+        {"label": "D", "text": "不太喜欢设定目标，随遇而安"}
+      ],
+      "scoring": {"execution":3,"resilience":1}
+    },
+    {
+      "order": 21,
+      "content": "你能轻松记住复杂的指令或路线吗？",
+      "options": [
+        {"label": "A", "text": "告诉一遍就能记住，导航不用开"},
+        {"label": "B", "text": "大部分能记住，复杂的地方需要查一下"},
+        {"label": "C", "text": "需要用笔记下来或者依赖导航"},
+        {"label": "D", "text": "记忆力比较差，经常需要反复确认"}
+      ],
+      "scoring": {"memory":3,"observation":1}
+    },
+    {
+      "order": 22,
+      "content": "别人描述你时，最常提到哪个特质？",
+      "options": [
+        {"label": "A", "text": "靠谱，做事让人放心"},
+        {"label": "B", "text": "聪明，点子多反应快"},
+        {"label": "C", "text": "好相处，让人感到舒服"},
+        {"label": "D", "text": "有主见，能带得动大家"}
+      ],
+      "scoring": {"execution":3,"creativity":2,"empathy":2,"leadership":3}
+    },
+    {
+      "order": 23,
+      "content": "面对一个完全陌生的领域？",
+      "options": [
+        {"label": "A", "text": "很兴奋，马上开始调研学习"},
+        {"label": "B", "text": "会感到挑战，但有信心搞定"},
+        {"label": "C", "text": "有些不安，需要搭建知识框架再开始"},
+        {"label": "D", "text": "感到无从下手，希望有人带"}
+      ],
+      "scoring": {"learning":3,"resilience":2,"logic":1}
+    },
+    {
+      "order": 24,
+      "content": "项目出现意外问题时？",
+      "options": [
+        {"label": "A", "text": "保持冷静，快速排查原因"},
+        {"label": "B", "text": "迅速组织人员，分头解决问题"},
+        {"label": "C", "text": "分析影响范围，制定应急方案"},
+        {"label": "D", "text": "有点慌，但知道找谁说能帮忙"}
+      ],
+      "scoring": {"resilience":3,"logic":2,"leadership":3,"execution":2}
+    },
+    {
+      "order": 25,
+      "content": "你觉得自己最需要提升的是？",
+      "options": [
+        {"label": "A", "text": "结构性思维和逻辑分析"},
+        {"label": "B", "text": "与人沟通和表达的能力"},
+        {"label": "C", "text": "设定目标并坚持完成的执行力"},
+        {"label": "D", "text": "情绪管理和抗压能力"}
+      ],
+      "scoring": {"logic":1,"communication":1,"execution":1,"resilience":1}
+    },
+    {
+      "order": 26,
+      "content": "下面哪句话最能描述你的人生态度？",
+      "options": [
+        {"label": "A", "text": "穷尽真理的探索者"},
+        {"label": "B", "text": "不断创造的艺术家"},
+        {"label": "C", "text": "踏实前行的行动者"},
+        {"label": "D", "text": "温暖他人的陪伴者"}
+      ],
+      "scoring": {"logic":2,"creativity":2,"execution":2,"empathy":2}
+    }
+  ]
+}
