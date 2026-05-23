@@ -1,0 +1,15 @@
+{
+  "name": "talent-digger",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Talent Digger - 天赋发现与职业规划小程序",
+  "scripts": {
+    "dev:miniapp": "pnpm -C miniapp dev",
+    "dev:admin": "pnpm -C admin dev",
+    "build:miniapp": "pnpm -C miniapp build",
+    "build:admin": "pnpm -C admin build"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
