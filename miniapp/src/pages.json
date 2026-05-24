@@ -1,0 +1,112 @@
+{
+  "easycom": {
+    "autoscan": true,
+    "custom": {
+      "^u-(.*)": "@/components/u-$1/u-$1.vue"
+    }
+  },
+  "pages": [
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "Talent Digger",
+        "navigationBarBackgroundColor": "#4A90D9",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/login/login",
+      "style": {
+        "navigationBarTitleText": "登录",
+        "navigationBarBackgroundColor": "#4A90D9",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/test/index",
+      "style": {
+        "navigationBarTitleText": "测评中心"
+      }
+    },
+    {
+      "path": "pages/test/answer",
+      "style": {
+        "navigationBarTitleText": "答题中"
+      }
+    },
+    {
+      "path": "pages/report/index",
+      "style": {
+        "navigationBarTitleText": "测评报告"
+      }
+    },
+    {
+      "path": "pages/career/index",
+      "style": {
+        "navigationBarTitleText": "职业规划"
+      }
+    },
+    {
+      "path": "pages/career/tool",
+      "style": {
+        "navigationBarTitleText": "规划工具"
+      }
+    },
+    {
+      "path": "pages/plan/index",
+      "style": {
+        "navigationBarTitleText": "成长计划"
+      }
+    },
+    {
+      "path": "pages/mine/index",
+      "style": {
+        "navigationBarTitleText": "我的"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "Talent Digger",
+    "navigationBarBackgroundColor": "#F8F9FA",
+    "backgroundColor": "#F8F9FA"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#4A90D9",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "static/tabbar/home.png",
+        "selectedIconPath": "static/tabbar/home-active.png"
+      },
+      {
+        "pagePath": "pages/test/index",
+        "text": "测评",
+        "iconPath": "static/tabbar/test.png",
+        "selectedIconPath": "static/tabbar/test-active.png"
+      },
+      {
+        "pagePath": "pages/career/index",
+        "text": "规划",
+        "iconPath": "static/tabbar/career.png",
+        "selectedIconPath": "static/tabbar/career-active.png"
+      },
+      {
+        "pagePath": "pages/plan/index",
+        "text": "计划",
+        "iconPath": "static/tabbar/plan.png",
+        "selectedIconPath": "static/tabbar/plan-active.png"
+      },
+      {
+        "pagePath": "pages/mine/index",
+        "text": "我的",
+        "iconPath": "static/tabbar/mine.png",
+        "selectedIconPath": "static/tabbar/mine-active.png"
+      }
+    ]
+  }
+}

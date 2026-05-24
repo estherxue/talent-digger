@@ -41,7 +41,7 @@ const navigateTo = (url: string) => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/common.scss';
+@use '@/styles/common.scss' as *;
 
 .page-career {
   padding: 0 24rpx 40rpx;

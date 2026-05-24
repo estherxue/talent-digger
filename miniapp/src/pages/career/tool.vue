@@ -133,7 +133,7 @@ function generateResult(): string {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/common.scss';
+@use '@/styles/common.scss' as *;
 
 .page-tool { padding-bottom: 40rpx; }
 

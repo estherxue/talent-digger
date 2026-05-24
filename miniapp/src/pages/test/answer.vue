@@ -151,7 +151,7 @@ function confirmSubmit() {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/common.scss';
+@use '@/styles/common.scss' as *;
 
 .page-answer {
   min-height: 100vh;

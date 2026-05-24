@@ -128,7 +128,7 @@ function createPlan() {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/common.scss';
+@use '@/styles/common.scss' as *;
 
 .page-plan { padding: 0 24rpx 40rpx; }
 
