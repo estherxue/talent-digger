@@ -16,7 +16,20 @@ import { useUserStore } from '@/stores/user'
 
 const userStore = useUserStore()
 
-const loginAsGuest = () => {
+async function handleWechatLogin() {
+  uni.showLoading({ title: '登录中...' })
+  const result = await userStore.loginByWechat()
+  uni.hideLoading()
+
+  if (result.success) {
+    uni.showToast({ title: '登录成功', icon: 'success' })
+    setTimeout(() => {
+      uni.switchTab({ url: '/pages/index/index' })
+    }, 500)
+  }
+}
+
+function loginAsGuest() {
   userStore.loginAsGuest()
   uni.switchTab({ url: '/pages/index/index' })
 }

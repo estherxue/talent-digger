@@ -2,7 +2,13 @@
 import { onLaunch, onShow, onHide } from '@dcloudio/uni-app'
 
 onLaunch(() => {
-  console.log('Talent Digger App Launch')
+  // 初始化 CloudBase 云开发
+  if (wx.cloud) {
+    wx.cloud.init({
+      env: '__CLOUDBASE_ENV__'  // 如 'talent-digger-8grqda2hf'
+    })
+    console.log('CloudBase initialized')
+  }
 })
 
 onShow(() => {

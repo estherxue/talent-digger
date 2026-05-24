@@ -1,6 +1,6 @@
 {
   "name": "Talent Digger",
-  "appid": "__UNI__TALENT_DIGGER",
+  "appid": "__WECHAT_APPID__",
   "// appid": "请在微信公众平台注册小程序后，将上方 appid 替换为真实 AppID",
   "// mp-weixin.appid": "同时也需替换 mp-weixin.appid 字段",
   "description": "发现天赋，规划职业",

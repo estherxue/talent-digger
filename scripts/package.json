@@ -1,0 +1,12 @@
+{
+  "name": "talent-digger-scripts",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "init-db": "node init-db.js",
+    "deploy-functions": "echo '请在 CloudBase CLI 中使用: tcb fn deploy'"
+  },
+  "dependencies": {
+    "@cloudbase/node-sdk": "^2.0.0"
+  }
+}

@@ -15,7 +15,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { statsApi } from '@/api'
 
 const stats = ref([
   { label: '注册用户', value: 0 },
@@ -23,6 +24,25 @@ const stats = ref([
   { label: '题库数量', value: 0 },
   { label: '职业条目', value: 0 }
 ])
+const loading = ref(true)
+
+onMounted(async () => {
+  try {
+    const res: any = await statsApi.overview()
+    if (res?.data) {
+      stats.value = [
+        { label: '注册用户', value: res.data.totalUsers || 0 },
+        { label: '测评完成', value: res.data.totalResults || 0 },
+        { label: '题库数量', value: res.data.totalTests || 0 },
+        { label: '职业条目', value: res.data.totalCareers || 0 }
+      ]
+    }
+  } catch (e) {
+    console.error('加载统计数据失败', e)
+  } finally {
+    loading.value = false
+  }
+})
 </script>
 
 <style scoped>

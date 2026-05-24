@@ -72,8 +72,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { testApi } from '@/api'
 
 interface TestItem {
   id: string; name: string; category: string; description: string;
@@ -85,10 +86,7 @@ const searchQuery = ref('')
 const filterCategory = ref('')
 const dialogVisible = ref(false)
 const editingId = ref('')
-const tests = ref<TestItem[]>([
-  { id:'t1', name:'天赋罗盘测试', category:'talent', description:'通过26题评估10个天赋维度', questionCount:26, estimatedMinutes:15, status:'published', dimensions:[] },
-  { id:'t2', name:'霍兰德职业兴趣测试', category:'interest', description:'RIASEC六维度评估', questionCount:60, estimatedMinutes:20, status:'published', dimensions:[] }
-])
+const tests = ref<TestItem[]>([])
 const form = ref({ name:'', category:'talent', description:'', estimatedMinutes:15, status:'draft' })
 
 const dialogTitle = computed(() => editingId.value ? '编辑测评' : '添加测评')
@@ -106,6 +104,18 @@ function categoryLabel(c: string) {
   return map[c] || c
 }
 
+onMounted(async () => {
+  loading.value = true
+  try {
+    const res: any = await testApi.list()
+    if (res?.data) tests.value = res.data
+  } catch (e) {
+    console.error(e)
+  } finally {
+    loading.value = false
+  }
+})
+
 function handleAdd() {
   editingId.value = ''
   form.value = { name:'', category:'talent', description:'', estimatedMinutes:15, status:'draft' }
@@ -120,6 +130,7 @@ function handleEdit(row: TestItem) {
 
 function handleSave() {
   if (!form.value.name) { ElMessage.warning('请输入测评名称'); return }
+  // TODO: v2 阶段对接后端 API - testApi.create() / testApi.update()
   if (editingId.value) {
     const idx = tests.value.findIndex(t => t.id === editingId.value)
     if (idx !== -1) { tests.value[idx] = { ...tests.value[idx], ...form.value }; ElMessage.success('更新成功') }
@@ -132,6 +143,7 @@ function handleSave() {
 
 function handleDelete(row: TestItem) {
   ElMessageBox.confirm(`确认删除"${row.name}"吗？`, '警告', { type:'warning' }).then(() => {
+    // TODO: v2 阶段对接后端 API - testApi.delete(row.id)
     tests.value = tests.value.filter(t => t.id !== row.id)
     ElMessage.success('删除成功')
   }).catch(() => {})

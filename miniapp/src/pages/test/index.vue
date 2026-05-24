@@ -5,43 +5,21 @@
       <text class="page-desc">科学测评，发现你的天赋与兴趣</text>
     </view>
 
-    <!-- 测评分类 -->
-    <view class="section">
-      <view class="section-title">天赋测评</view>
-      <view class="test-card" @click="startTest('test_talent_compass')">
+    <!-- 测评列表 -->
+    <view class="section" v-for="section in testSections" :key="section.key">
+      <view class="section-title">{{ section.title }}</view>
+      <view class="test-card" v-for="item in sectionItems(section.key)" :key="item.id" @click="startTest(item.id)">
         <view class="test-card-header">
-          <view class="test-icon talent-icon">🧠</view>
+          <view class="test-icon" :class="item.id === 'test_talent_compass' ? 'talent-icon' : 'holland-icon'">{{ item.id === 'test_talent_compass' ? '🧠' : '💼' }}</view>
           <view class="test-info">
-            <text class="test-name">天赋罗盘测试</text>
-            <text class="test-dimensions">10 个维度 · 逻辑/创造/记忆/沟通等</text>
+            <text class="test-name">{{ item.name }}</text>
+            <text class="test-dimensions">{{ item.description }}</text>
           </view>
         </view>
         <view class="test-card-footer">
           <view class="test-meta">
-            <text class="meta-item">📝 26 题</text>
-            <text class="meta-item">⏱ 约15分钟</text>
-            <text class="meta-item">👥 1.2万人测过</text>
-          </view>
-          <view class="start-btn">开始测试</view>
-        </view>
-      </view>
-    </view>
-
-    <view class="section">
-      <view class="section-title">职业兴趣</view>
-      <view class="test-card" @click="startTest('test_holland')">
-        <view class="test-card-header">
-          <view class="test-icon holland-icon">💼</view>
-          <view class="test-info">
-            <text class="test-name">霍兰德职业兴趣测试</text>
-            <text class="test-dimensions">6 个维度 · RIASEC 模型</text>
-          </view>
-        </view>
-        <view class="test-card-footer">
-          <view class="test-meta">
-            <text class="meta-item">📝 60 题</text>
-            <text class="meta-item">⏱ 约20分钟</text>
-            <text class="meta-item">👥 2.5万人测过</text>
+            <text class="meta-item">📝 {{ item.questionCount }} 题</text>
+            <text class="meta-item">⏱ 约{{ item.estimatedMinutes }}分钟</text>
           </view>
           <view class="start-btn">开始测试</view>
         </view>
@@ -51,6 +29,38 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted, computed } from 'vue'
+import { getTestList } from '@/api'
+import type { TestDefinition } from '@shared/types/test'
+
+const testList = ref<TestDefinition[]>([])
+const loading = ref(true)
+
+const testSections = [
+  { key: 'talent', title: '天赋测评' },
+  { key: 'interest', title: '职业兴趣' },
+]
+
+const sectionItems = computed(() => (sectionKey: string) => {
+  if (sectionKey === 'talent') {
+    return testList.value.filter(t => t.category === 'talent')
+  }
+  return testList.value.filter(t => t.category === 'interest')
+})
+
+onMounted(async () => {
+  try {
+    const res = await getTestList()
+    if (res.code === 0) {
+      testList.value = res.data
+    }
+  } catch (e) {
+    console.error('加载测评列表失败', e)
+  } finally {
+    loading.value = false
+  }
+})
+
 const startTest = (testId: string) => {
   uni.navigateTo({
     url: `/pages/test/answer?testId=${testId}`

@@ -78,9 +78,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
-import { mockTalentReport } from '@/data/mock'
+import { generateReport } from '@/api'
+import type { ScoreItem, CareerMatch } from '@shared/types/test'
 
 interface DimensionScoreItem {
   key: string; name: string; percentage: number; level: string
@@ -98,30 +99,33 @@ const suggestions = ref<string[]>([])
 const careerMatches = ref<CareerMatchItem[]>([])
 const hasData = ref(false)
 
+const testId = ref('')
+const resultId = ref('')
+
 onLoad((options: any) => {
-  const testId = options?.testId || ''
-  if (testId) {
+  testId.value = options?.testId || ''
+  resultId.value = options?.resultId || ''
+  if (testId.value) {
     loadReport()
   }
 })
 
-onMounted(() => {
-  // 没有 testId 时显示历史报告列表（暂用模拟数据演示）
-  if (!testName.value) {
-    loadReport()
+async function loadReport() {
+  try {
+    const res = await generateReport(testId.value)
+    if (res.code === 0) {
+      const data = res.data
+      testName.value = data.testName
+      completedDate.value = new Date(data.completedAt || Date.now()).toLocaleDateString('zh-CN')
+      dimensionScores.value = data.scores
+      summary.value = data.summary
+      suggestions.value = data.suggestions
+      careerMatches.value = data.careerMatches
+      hasData.value = true
+    }
+  } catch (e) {
+    console.error('加载报告失败', e)
   }
-})
-
-function loadReport() {
-  // TODO: 替换为真实云函数调用
-  const data = mockTalentReport
-  testName.value = data.testName
-  completedDate.value = data.completedDate
-  dimensionScores.value = data.dimensionScores
-  summary.value = data.summary
-  suggestions.value = data.suggestions
-  careerMatches.value = data.careerMatches
-  hasData.value = true
 }
 
 function goToTest() {

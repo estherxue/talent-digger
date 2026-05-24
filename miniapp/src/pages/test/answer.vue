@@ -71,15 +71,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
-import { mockTalentQuestions } from '@/data/mock'
-
-interface Question {
-  id: string
-  content: string
-  options: { label: string; text: string }[]
-}
+import { getTestQuestions, submitTestResult } from '@/api'
+import type { Question } from '@shared/types/test'
 
 const testId = ref('')
 const currentIndex = ref(0)
@@ -100,13 +95,19 @@ onLoad((options: any) => {
   loadQuestions()
 })
 
-function loadQuestions() {
-  // TODO: 替换为真实的云函数调用
-  questions.value = mockTalentQuestions
-  totalQuestions.value = questions.value.length
-  if (questions.value.length > 0) {
-    const qid = questions.value[0].id
-    selectedOption.value = answers.value[qid] ?? null
+async function loadQuestions() {
+  try {
+    const res = await getTestQuestions(testId.value)
+    if (res.code === 0) {
+      questions.value = res.data.questions
+      totalQuestions.value = questions.value.length
+      if (questions.value.length > 0) {
+        selectedOption.value = answers.value[questions.value[0].id] ?? null
+      }
+    }
+  } catch (e) {
+    console.error('加载题目失败', e)
+    uni.showToast({ title: '加载失败', icon: 'none' })
   }
 }
 
@@ -136,17 +137,24 @@ function submitTest() {
   showSubmitModal.value = true
 }
 
-function confirmSubmit() {
+async function confirmSubmit() {
   showSubmitModal.value = false
   submitting.value = true
 
-  // 模拟提交延迟
-  setTimeout(() => {
+  try {
+    const res = await submitTestResult(testId.value, answers.value)
+    if (res.code === 0) {
+      uni.redirectTo({
+        url: `/pages/report/index?testId=${testId.value}&resultId=${res.data.resultId}`
+      })
+    } else {
+      uni.showToast({ title: res.message || '提交失败', icon: 'none' })
+    }
+  } catch (e: any) {
+    uni.showToast({ title: e?.message || '提交失败', icon: 'none' })
+  } finally {
     submitting.value = false
-    uni.redirectTo({
-      url: `/pages/report/index?testId=${testId.value}`
-    })
-  }, 1500)
+  }
 }
 </script>
 
