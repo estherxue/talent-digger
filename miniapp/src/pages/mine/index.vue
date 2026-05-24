@@ -109,7 +109,9 @@ import { ref } from 'vue'
 import { useUserStore } from '@/stores/user'
 
 const userStore = useUserStore()
-const userAvatar = ref('https://img0.baidu.com/it/u=1642736288,3966862278&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500')
+// 默认头像（本地资源或云端默认头像）
+const DEFAULT_AVATAR = '/static/default-avatar.png'
+const userAvatar = ref(userStore.avatar || DEFAULT_AVATAR)
 const testCount = ref(3)
 const planCount = ref(2)
 const streak = ref(5)

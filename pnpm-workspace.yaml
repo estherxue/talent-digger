@@ -2,3 +2,4 @@ packages:
   - 'miniapp'
   - 'admin'
   - 'shared'
+  - '!miniapp/cloudfunctions/**'

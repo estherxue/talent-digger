@@ -73,47 +73,13 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
+import { mockTalentQuestions } from '@/data/mock'
 
-// 模拟题目数据（实际应从云函数获取）
 interface Question {
   id: string
   content: string
   options: { label: string; text: string }[]
 }
-
-// 天赋罗盘模拟题目
-const mockTalentQuestions: Question[] = [
-  { id: 'q1', content: '当遇到一个复杂问题时，你通常会？', options: [
-    { label: 'A', text: '冷静分析，逐步拆解问题' },
-    { label: 'B', text: '凭直觉快速做出判断' },
-    { label: 'C', text: '向他人请教，寻求建议' },
-    { label: 'D', text: '先放一放，等灵感来了再处理' }
-  ]},
-  { id: 'q2', content: '在团队讨论中，你更倾向于？', options: [
-    { label: 'A', text: '积极发言，引导讨论方向' },
-    { label: 'B', text: '认真倾听，总结各方观点' },
-    { label: 'C', text: '提出创新的想法和视角' },
-    { label: 'D', text: '关注细节，确保方案可行' }
-  ]},
-  { id: 'q3', content: '学习新知识时，你最喜欢的方式是？', options: [
-    { label: 'A', text: '阅读书籍和文档，系统学习' },
-    { label: 'B', text: '动手实践，边做边学' },
-    { label: 'C', text: '观看视频教程，直观理解' },
-    { label: 'D', text: '与他人讨论交流，碰撞想法' }
-  ]},
-  { id: 'q4', content: '面对截止日期的压力，你通常会？', options: [
-    { label: 'A', text: '更加专注高效，压力是动力' },
-    { label: 'B', text: '感到焦虑但能按时完成' },
-    { label: 'C', text: '提前规划，避免最后一刻匆忙' },
-    { label: 'D', text: '需要他人督促和提醒' }
-  ]},
-  { id: 'q5', content: '在社交场合中，你通常？', options: [
-    { label: 'A', text: '主动结识新朋友，享受社交' },
-    { label: 'B', text: '与熟悉的人交流，保持舒适圈' },
-    { label: 'C', text: '观察他人，选择性互动' },
-    { label: 'D', text: '更喜欢独处或小范围交流' }
-  ]}
-]
 
 const testId = ref('')
 const currentIndex = ref(0)

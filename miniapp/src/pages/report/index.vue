@@ -80,6 +80,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
+import { mockTalentReport } from '@/data/mock'
 
 interface DimensionScoreItem {
   key: string; name: string; percentage: number; level: string
@@ -97,37 +98,6 @@ const suggestions = ref<string[]>([])
 const careerMatches = ref<CareerMatchItem[]>([])
 const hasData = ref(false)
 
-// 模拟报告数据
-const mockReportData = {
-  testName: '天赋罗盘测试',
-  completedDate: '2026年5月23日',
-  dimensionScores: [
-    { key: 'logic', name: '逻辑推理', percentage: 85, level: 'high' },
-    { key: 'creativity', name: '创造想象', percentage: 72, level: 'high' },
-    { key: 'memory', name: '记忆能力', percentage: 65, level: 'medium' },
-    { key: 'observation', name: '观察感知', percentage: 78, level: 'high' },
-    { key: 'communication', name: '沟通表达', percentage: 58, level: 'medium' },
-    { key: 'leadership', name: '领导组织', percentage: 45, level: 'medium' },
-    { key: 'execution', name: '执行实操', percentage: 90, level: 'high' },
-    { key: 'empathy', name: '同理共情', percentage: 62, level: 'medium' },
-    { key: 'resilience', name: '抗压韧性', percentage: 70, level: 'high' },
-    { key: 'learning', name: '学习适应', percentage: 82, level: 'high' }
-  ],
-  summary: '你的逻辑推理和执行实操能力最为突出，显示出强大的分析问题和落地执行能力。学习适应能力也处于高位，说明你能快速掌握新技能。沟通表达和领导组织有提升空间，建议通过实际项目锻炼。',
-  suggestions: [
-    '发挥逻辑推理优势，从事数据分析、产品管理等相关工作',
-    '结合执行实操能力，尝试项目管理或运营类岗位',
-    '加强沟通表达训练，可通过演讲或写作提升',
-    '参与团队项目，锻炼领导组织能力'
-  ],
-  careerMatches: [
-    { careerId: 'c1', careerName: '数据分析师', matchScore: 92, reason: '逻辑推理能力突出，善于处理复杂数据' },
-    { careerId: 'c2', careerName: '产品经理', matchScore: 88, reason: '分析能力与执行力兼备，适合产品规划' },
-    { careerId: 'c3', careerName: '项目经理', matchScore: 82, reason: '执行力强，善于推动项目落地' },
-    { careerId: 'c4', careerName: '咨询顾问', matchScore: 78, reason: '逻辑清晰，学习能力强' }
-  ]
-}
-
 onLoad((options: any) => {
   const testId = options?.testId || ''
   if (testId) {
@@ -144,7 +114,7 @@ onMounted(() => {
 
 function loadReport() {
   // TODO: 替换为真实云函数调用
-  const data = mockReportData
+  const data = mockTalentReport
   testName.value = data.testName
   completedDate.value = data.completedDate
   dimensionScores.value = data.dimensionScores
