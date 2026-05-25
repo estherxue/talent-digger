@@ -9,11 +9,11 @@ exports.main = async (event, context) => {
 
   try {
     // 获取测评结果
-    const { data: result } = await db.collection('results').doc(resultId).get();
+    const { data: [result] } = await db.collection('results').doc(resultId).get();
     if (!result) return { code: -1, message: '结果不存在', data: null };
 
     // 获取测评维度和职业库
-    const { data: [test] } = await db.collection('tests').doc(result.testId).get();
+    const { data: [test] } = await db.collection('tests').where({ testId: result.testId }).limit(1).get();
     const { data: careers } = await db.collection('career_library').get();
 
     // 计算各维度百分比并排序

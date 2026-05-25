@@ -19,7 +19,7 @@
         <view class="test-card-footer">
           <view class="test-meta">
             <text class="meta-item">📝 {{ item.questionCount }} 题</text>
-            <text class="meta-item">⏱ 约{{ item.estimatedMinutes }}分钟</text>
+            <text class="meta-item">⏱ 约{{ item.estimatedMin }}分钟</text>
           </view>
           <view class="start-btn">开始测试</view>
         </view>

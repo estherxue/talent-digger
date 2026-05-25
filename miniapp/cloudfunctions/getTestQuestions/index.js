@@ -13,7 +13,7 @@ exports.main = async (event, context) => {
       .where({ testId })
       .orderBy('order', 'asc')
       .get();
-    const { data: [test] } = await db.collection('tests').doc(testId).get();
+    const { data: [test] } = await db.collection('tests').where({ testId }).limit(1).get();
     return {
       code: 0, message: 'success',
       data: { test, questions }

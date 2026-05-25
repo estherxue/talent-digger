@@ -89,12 +89,12 @@ export const mockTalentReport: MockReport = {
     { key: 'creativity', name: '创造想象', percentage: 72, level: 'high' },
     { key: 'memory', name: '记忆能力', percentage: 65, level: 'medium' },
     { key: 'observation', name: '观察感知', percentage: 78, level: 'high' },
-    { key: 'communication', name: '沟通表达', percentage: 58, level: 'medium' },
-    { key: 'leadership', name: '领导组织', percentage: 45, level: 'medium' },
-    { key: 'execution', name: '执行实操', percentage: 90, level: 'high' },
+    { key: 'comm', name: '沟通表达', percentage: 58, level: 'medium' },
+    { key: 'lead', name: '领导组织', percentage: 45, level: 'medium' },
+    { key: 'exec', name: '执行实操', percentage: 90, level: 'high' },
     { key: 'empathy', name: '同理共情', percentage: 62, level: 'medium' },
     { key: 'resilience', name: '抗压韧性', percentage: 70, level: 'high' },
-    { key: 'learning', name: '学习适应', percentage: 82, level: 'high' }
+    { key: 'learn', name: '学习适应', percentage: 82, level: 'high' }
   ],
   summary: '你的逻辑推理和执行实操能力最为突出，显示出强大的分析问题和落地执行能力。学习适应能力也处于高位，说明你能快速掌握新技能。沟通表达和领导组织有提升空间，建议通过实际项目锻炼。',
   suggestions: [

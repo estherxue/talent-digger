@@ -30,7 +30,7 @@ export interface TestDefinition {
   description: string
   dimensions: Dimension[]
   questionCount: number
-  estimatedMinutes: number
+  estimatedMin: number
   category: 'talent' | 'interest' | 'personality'
 }
 

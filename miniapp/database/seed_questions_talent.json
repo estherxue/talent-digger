@@ -11,7 +11,7 @@
         {"label": "C", "text": "先观察别人的做法，模仿学习"},
         {"label": "D", "text": "凭直觉和灵感直接上手"}
       ],
-      "scoring": {"logic":3,"execution":2,"learning":2,"creativity":2}
+      "scoring": {"logic":3,"exec":2,"learn":2,"creativity":2}
     },
     {
       "order": 2,
@@ -22,7 +22,7 @@
         {"label": "C", "text": "帮大家梳理思路，总结形成共识"},
         {"label": "D", "text": "观察每个人的反应和团队氛围"}
       ],
-      "scoring": {"communication":3,"leadership":2,"observation":2,"empathy":1}
+      "scoring": {"comm":3,"lead":2,"observation":2,"empathy":1}
     },
     {
       "order": 3,
@@ -33,7 +33,7 @@
         {"label": "C", "text": "找个师傅或教程一步步跟着做"},
         {"label": "D", "text": "自己尝试创造性的用法"}
       ],
-      "scoring": {"logic":2,"learning":3,"execution":2,"creativity":2}
+      "scoring": {"logic":2,"learn":3,"exec":2,"creativity":2}
     },
     {
       "order": 4,
@@ -44,7 +44,7 @@
         {"label": "C", "text": "早就做好了计划，所以不慌不忙"},
         {"label": "D", "text": "容易乱了阵脚，需要寻求帮助"}
       ],
-      "scoring": {"resilience":3,"execution":2,"logic":1}
+      "scoring": {"resilience":3,"exec":2,"logic":1}
     },
     {
       "order": 5,
@@ -55,7 +55,7 @@
         {"label": "C", "text": "默默跟着大家一起参与就好"},
         {"label": "D", "text": "更愿意和少数人深入交流"}
       ],
-      "scoring": {"communication":3,"observation":2,"empathy":2,"leadership":1}
+      "scoring": {"comm":3,"observation":2,"empathy":2,"lead":1}
     },
     {
       "order": 6,
@@ -77,7 +77,7 @@
         {"label": "C", "text": "讲讲自己的类似经历，让对方感觉被理解"},
         {"label": "D", "text": "带对方做些开心的事，帮忙转移注意力"}
       ],
-      "scoring": {"empathy":3,"communication":2,"logic":1,"creativity":1}
+      "scoring": {"empathy":3,"comm":2,"logic":1,"creativity":1}
     },
     {
       "order": 8,
@@ -88,7 +88,7 @@
         {"label": "C", "text": "有时能注意到，但经常忽略"},
         {"label": "D", "text": "更关注大局，细节交给别人处理"}
       ],
-      "scoring": {"observation":3,"execution":2}
+      "scoring": {"observation":3,"exec":2}
     },
     {
       "order": 9,
@@ -99,7 +99,7 @@
         {"label": "C", "text": "先征求其他人的意见和想法"},
         {"label": "D", "text": "有些紧张，担心做不好"}
       ],
-      "scoring": {"leadership":3,"execution":2,"communication":1}
+      "scoring": {"lead":3,"exec":2,"comm":1}
     },
     {
       "order": 10,
@@ -110,7 +110,7 @@
         {"label": "C", "text": "会比较纠结，喜欢稳定的环境"},
         {"label": "D", "text": "很容易焦虑，需要他人的支持"}
       ],
-      "scoring": {"learning":3,"resilience":2}
+      "scoring": {"learn":3,"resilience":2}
     },
     {
       "order": 11,
@@ -121,7 +121,7 @@
         {"label": "C", "text": "领导团队，统筹全局"},
         {"label": "D", "text": "独立负责一部分，定期和团队对齐"}
       ],
-      "scoring": {"execution":2,"communication":2,"leadership":3}
+      "scoring": {"exec":2,"comm":2,"lead":3}
     },
     {
       "order": 12,
@@ -132,7 +132,7 @@
         {"label": "C", "text": "先观望，确定有用后再投入"},
         {"label": "D", "text": "比较保守，倾向于使用熟悉的东西"}
       ],
-      "scoring": {"learning":3,"creativity":2}
+      "scoring": {"learn":3,"creativity":2}
     },
     {
       "order": 13,
@@ -154,7 +154,7 @@
         {"label": "C", "text": "好沟通有默契的，相处舒服"},
         {"label": "D", "text": "有凝聚力让人有安全感的"}
       ],
-      "scoring": {"learning":2,"creativity":2,"communication":2,"empathy":2}
+      "scoring": {"learn":2,"creativity":2,"comm":2,"empathy":2}
     },
     {
       "order": 15,
@@ -165,7 +165,7 @@
         {"label": "C", "text": "反思自己是不是有考虑不周的地方"},
         {"label": "D", "text": "尽量避免争论，和谐最重要"}
       ],
-      "scoring": {"logic":2,"communication":3,"empathy":2,"resilience":1}
+      "scoring": {"logic":2,"comm":3,"empathy":2,"resilience":1}
     },
     {
       "order": 16,
@@ -176,7 +176,7 @@
         {"label": "C", "text": "欣赏创造力，但自己不擅长"},
         {"label": "D", "text": "更喜欢按规则办事，创造性不重要"}
       ],
-      "scoring": {"creativity":3,"learning":1}
+      "scoring": {"creativity":3,"learn":1}
     },
     {
       "order": 17,
@@ -187,7 +187,7 @@
         {"label": "C", "text": "解释自己的思路，但容易情绪化"},
         {"label": "D", "text": "很受打击，影响之后的工作状态"}
       ],
-      "scoring": {"resilience":3,"logic":2,"communication":2}
+      "scoring": {"resilience":3,"logic":2,"comm":2}
     },
     {
       "order": 18,
@@ -209,7 +209,7 @@
         {"label": "C", "text": "参考他人的经验和建议"},
         {"label": "D", "text": "权衡利弊后做折中选择"}
       ],
-      "scoring": {"logic":3,"creativity":2,"communication":1}
+      "scoring": {"logic":3,"creativity":2,"comm":1}
     },
     {
       "order": 20,
@@ -220,7 +220,7 @@
         {"label": "C", "text": "偶尔设定，看心情和状态"},
         {"label": "D", "text": "不太喜欢设定目标，随遇而安"}
       ],
-      "scoring": {"execution":3,"resilience":1}
+      "scoring": {"exec":3,"resilience":1}
     },
     {
       "order": 21,
@@ -242,7 +242,7 @@
         {"label": "C", "text": "好相处，让人感到舒服"},
         {"label": "D", "text": "有主见，能带得动大家"}
       ],
-      "scoring": {"execution":3,"creativity":2,"empathy":2,"leadership":3}
+      "scoring": {"exec":3,"creativity":2,"empathy":2,"lead":3}
     },
     {
       "order": 23,
@@ -253,7 +253,7 @@
         {"label": "C", "text": "有些不安，需要搭建知识框架再开始"},
         {"label": "D", "text": "感到无从下手，希望有人带"}
       ],
-      "scoring": {"learning":3,"resilience":2,"logic":1}
+      "scoring": {"learn":3,"resilience":2,"logic":1}
     },
     {
       "order": 24,
@@ -264,7 +264,7 @@
         {"label": "C", "text": "分析影响范围，制定应急方案"},
         {"label": "D", "text": "有点慌，但知道找谁说能帮忙"}
       ],
-      "scoring": {"resilience":3,"logic":2,"leadership":3,"execution":2}
+      "scoring": {"resilience":3,"logic":2,"lead":3,"exec":2}
     },
     {
       "order": 25,
@@ -275,7 +275,7 @@
         {"label": "C", "text": "设定目标并坚持完成的执行力"},
         {"label": "D", "text": "情绪管理和抗压能力"}
       ],
-      "scoring": {"logic":1,"communication":1,"execution":1,"resilience":1}
+      "scoring": {"logic":1,"comm":1,"exec":1,"resilience":1}
     },
     {
       "order": 26,
@@ -286,7 +286,7 @@
         {"label": "C", "text": "踏实前行的行动者"},
         {"label": "D", "text": "温暖他人的陪伴者"}
       ],
-      "scoring": {"logic":2,"creativity":2,"execution":2,"empathy":2}
+      "scoring": {"logic":2,"creativity":2,"exec":2,"empathy":2}
     }
   ]
 }

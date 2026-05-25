@@ -6,7 +6,7 @@ const db = cloud.database();
 exports.main = async (event, context) => {
   try {
     const { data } = await db.collection('tests')
-      .field({ _id: true, name: true, description: true, dimensions: true, questionCount: true, estimatedMinutes: true, category: true })
+      .field({ testId: true, name: true, description: true, dimensions: true, questionCount: true, estimatedMin: true, category: true })
       .get();
     return { code: 0, message: 'success', data };
   } catch (err) {

@@ -39,7 +39,7 @@ exports.main = async (event, context) => {
 
   try {
     // 验证测评是否存在
-    const { data: test } = await db.collection('tests').doc(testId).field({ _id: true }).get();
+    const { data: [test] } = await db.collection('tests').where({ testId }).field({ testId: true }).limit(1).get();
     if (!test) {
       return { code: -1, message: '测评不存在', data: null };
     }
