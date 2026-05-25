@@ -1,5 +1,6 @@
 node_modules/
 dist/
+unpackage/
 .env
 .env.local
 *.log
@@ -7,4 +8,14 @@ dist/
 .idea/
 .vscode/
 uni_modules/
-unpackage/
+
+# 微信开发者工具私有配置
+miniapp/project.private.config.json
+
+# CloudBase 本地调试配置
+miniapp/cloudfunctions/**/node_modules/
+
+# 临时文件
+*.swp
+*.swo
+*~

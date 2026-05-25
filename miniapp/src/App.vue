@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { onLaunch, onShow, onHide } from '@dcloudio/uni-app'
+import { config } from '@/config'
 
 onLaunch(() => {
   // 初始化 CloudBase 云开发
   if (wx.cloud) {
     wx.cloud.init({
-      env: '__CLOUDBASE_ENV__'  // 如 'talent-digger-8grqda2hf'
+      env: config.cloudbaseEnv
     })
     console.log('CloudBase initialized')
   }
