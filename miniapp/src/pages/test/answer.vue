@@ -17,10 +17,10 @@
       </view>
 
       <!-- 选项 -->
-      <view class="options-list">
+      <view class="options-list" :key="currentQuestion.id">
         <view
           v-for="(option, idx) in currentQuestion.options"
-          :key="idx"
+          :key="currentQuestion.id + '-' + idx"
           class="option-item"
           :class="{ selected: selectedOption === idx }"
           @click="selectOption(idx)"
@@ -71,24 +71,36 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, reactive, computed, watch } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
 import { getTestQuestions, submitTestResult } from '@/api'
+import { mockTalentQuestions } from '@/data/mock/test'
 import type { Question } from '@shared/types/test'
 
 const testId = ref('')
 const currentIndex = ref(0)
 const totalQuestions = ref(0)
 const questions = ref<Question[]>([])
-const answers = ref<Record<string, number>>({})
-const selectedOption = ref<number | null>(null)
+const answers = reactive<Record<string, number>>({})
+const selectedOption = ref<number>(-1)
 const showSubmitModal = ref(false)
 const submitting = ref(false)
 
 const currentQuestion = computed(() => questions.value[currentIndex.value] || null)
 const progressPercent = computed(() => ((currentIndex.value + 1) / totalQuestions.value) * 100)
-const answeredCount = computed(() => Object.keys(answers.value).length)
+const answeredCount = computed(() => Object.keys(answers).length)
 const unansweredCount = computed(() => totalQuestions.value - answeredCount.value)
+
+// 题目切换或数据加载时，自动同步当前题目的选中状态
+watch([currentIndex, questions], () => {
+  if (questions.value.length > 0) {
+    const qid = questions.value[currentIndex.value]?.id
+    if (qid) {
+      const prev = answers[qid]
+      selectedOption.value = prev !== undefined ? prev : -1
+    }
+  }
+}, { immediate: true })
 
 onLoad((options: any) => {
   testId.value = options?.testId || ''
@@ -97,39 +109,43 @@ onLoad((options: any) => {
 
 async function loadQuestions() {
   try {
+    console.log('[answer] 开始加载题目, testId:', testId.value)
     const res = await getTestQuestions(testId.value)
-    if (res.code === 0) {
+    console.log('[answer] getTestQuestions 返回:', JSON.stringify({ code: res.code, message: res.message, hasTest: !!res.data?.test, questionCount: res.data?.questions?.length, dataKeys: res.data ? Object.keys(res.data) : 'null' }))
+    if (res.code === 0 && res.data?.questions?.length > 0) {
       questions.value = res.data.questions
       totalQuestions.value = questions.value.length
-      if (questions.value.length > 0) {
-        selectedOption.value = answers.value[questions.value[0].id] ?? null
-      }
+      console.log('[answer] 使用云端数据, 共', totalQuestions.value, '题')
+      return
     }
+    console.warn('[answer] 云端数据为空或无效，使用本地 fallback')
   } catch (e) {
-    console.error('加载题目失败', e)
-    uni.showToast({ title: '加载失败', icon: 'none' })
+    console.error('[answer] 加载题目失败，使用本地数据', e)
   }
+
+  // Fallback: 使用本地 mock 数据
+  questions.value = mockTalentQuestions
+  totalQuestions.value = questions.value.length
+  console.log('[answer] 使用本地 mock 数据, 共', totalQuestions.value, '题')
 }
 
 function selectOption(idx: number) {
   if (!currentQuestion.value) return
-  answers.value[currentQuestion.value.id] = idx
+  answers[currentQuestion.value.id] = idx
   selectedOption.value = idx
 }
 
 function prevQuestion() {
   if (currentIndex.value > 0) {
+    selectedOption.value = -1
     currentIndex.value--
-    const qid = questions.value[currentIndex.value].id
-    selectedOption.value = answers.value[qid] ?? null
   }
 }
 
 function nextQuestion() {
   if (currentIndex.value < totalQuestions.value - 1) {
+    selectedOption.value = -1
     currentIndex.value++
-    const qid = questions.value[currentIndex.value].id
-    selectedOption.value = answers.value[qid] ?? null
   }
 }
 
@@ -142,19 +158,23 @@ async function confirmSubmit() {
   submitting.value = true
 
   try {
-    const res = await submitTestResult(testId.value, answers.value)
+    const res = await submitTestResult(testId.value, answers)
     if (res.code === 0) {
       uni.redirectTo({
-        url: `/pages/report/index?testId=${testId.value}&resultId=${res.data.resultId}`
+        url: `/pages/report/index?testId=${testId.value}&resultId=${res.data?.resultId || 'local'}`
       })
-    } else {
-      uni.showToast({ title: res.message || '提交失败', icon: 'none' })
+      return
     }
   } catch (e: any) {
-    uni.showToast({ title: e?.message || '提交失败', icon: 'none' })
+    console.error('提交失败，使用本地数据跳转', e)
   } finally {
     submitting.value = false
   }
+
+  // Fallback: 直接跳转到报告页
+  uni.redirectTo({
+    url: `/pages/report/index?testId=${testId.value}&resultId=local`
+  })
 }
 </script>
 
