@@ -1,8 +1,8 @@
 // CloudBase API 基础封装
 // 使用 wx.cloud.callFunction 调用云函数
 
-import { ref } from 'vue'
 import type { TestDefinition } from '@shared/types/test'
+import { mockTalentQuestions } from '@/data/mock/test'
 
 export interface ApiResponse<T = any> {
   code: number
@@ -87,7 +87,10 @@ export async function getTestList() {
 
 /** 获取测评题目 */
 export async function getTestQuestions(testId: string) {
-  return callCloudFunction('getTestQuestions', { testId })
+  const res = await callCloudFunction('getTestQuestions', { testId })
+  if (res.code === 0 && res.data?.questions?.length > 0) return res
+  // 云函数失败时 fallback 到本地 mock 数据
+  return { code: 0, message: 'ok', data: { questions: mockTalentQuestions as any } }
 }
 
 /** 提交测评结果 */

@@ -74,7 +74,6 @@
 import { ref, reactive, computed, watch } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
 import { getTestQuestions, submitTestResult } from '@/api'
-import { mockTalentQuestions } from '@/data/mock/test'
 import type { Question } from '@shared/types/test'
 
 const testId = ref('')
@@ -108,25 +107,11 @@ onLoad((options: any) => {
 })
 
 async function loadQuestions() {
-  try {
-    console.log('[answer] 开始加载题目, testId:', testId.value)
-    const res = await getTestQuestions(testId.value)
-    console.log('[answer] getTestQuestions 返回:', JSON.stringify({ code: res.code, message: res.message, hasTest: !!res.data?.test, questionCount: res.data?.questions?.length, dataKeys: res.data ? Object.keys(res.data) : 'null' }))
-    if (res.code === 0 && res.data?.questions?.length > 0) {
-      questions.value = res.data.questions
-      totalQuestions.value = questions.value.length
-      console.log('[answer] 使用云端数据, 共', totalQuestions.value, '题')
-      return
-    }
-    console.warn('[answer] 云端数据为空或无效，使用本地 fallback')
-  } catch (e) {
-    console.error('[answer] 加载题目失败，使用本地数据', e)
+  const res = await getTestQuestions(testId.value)
+  if (res.code === 0 && res.data?.questions?.length > 0) {
+    questions.value = res.data.questions
+    totalQuestions.value = questions.value.length
   }
-
-  // Fallback: 使用本地 mock 数据
-  questions.value = mockTalentQuestions
-  totalQuestions.value = questions.value.length
-  console.log('[answer] 使用本地 mock 数据, 共', totalQuestions.value, '题')
 }
 
 function selectOption(idx: number) {
