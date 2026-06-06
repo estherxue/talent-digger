@@ -71,35 +71,31 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, watch } from 'vue'
+import { ref, computed } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
 import { getTestQuestions, submitTestResult } from '@/api'
-import type { Question } from '@shared/types/test'
+import { useAnswerLogic } from '@/composables/useAnswerLogic'
 
 const testId = ref('')
-const currentIndex = ref(0)
-const totalQuestions = ref(0)
-const questions = ref<Question[]>([])
-const answers = reactive<Record<string, number>>({})
-const selectedOption = ref<number>(-1)
 const showSubmitModal = ref(false)
 const submitting = ref(false)
 
-const currentQuestion = computed(() => questions.value[currentIndex.value] || null)
-const progressPercent = computed(() => ((currentIndex.value + 1) / totalQuestions.value) * 100)
-const answeredCount = computed(() => Object.keys(answers).length)
-const unansweredCount = computed(() => totalQuestions.value - answeredCount.value)
+const {
+  currentIndex,
+  totalQuestions,
+  questions,
+  answers,
+  selectedOption,
+  currentQuestion,
+  answeredCount,
+  unansweredCount,
+  selectOption,
+  prevQuestion,
+  nextQuestion,
+  setQuestions,
+} = useAnswerLogic()
 
-// 题目切换或数据加载时，自动同步当前题目的选中状态
-watch([currentIndex, questions], () => {
-  if (questions.value.length > 0) {
-    const qid = questions.value[currentIndex.value]?.id
-    if (qid) {
-      const prev = answers[qid]
-      selectedOption.value = prev !== undefined ? prev : -1
-    }
-  }
-}, { immediate: true })
+const progressPercent = computed(() => ((currentIndex.value + 1) / totalQuestions.value) * 100)
 
 onLoad((options: any) => {
   testId.value = options?.testId || ''
@@ -109,28 +105,7 @@ onLoad((options: any) => {
 async function loadQuestions() {
   const res = await getTestQuestions(testId.value)
   if (res.code === 0 && res.data?.questions?.length > 0) {
-    questions.value = res.data.questions
-    totalQuestions.value = questions.value.length
-  }
-}
-
-function selectOption(idx: number) {
-  if (!currentQuestion.value) return
-  answers[currentQuestion.value.id] = idx
-  selectedOption.value = idx
-}
-
-function prevQuestion() {
-  if (currentIndex.value > 0) {
-    selectedOption.value = -1
-    currentIndex.value--
-  }
-}
-
-function nextQuestion() {
-  if (currentIndex.value < totalQuestions.value - 1) {
-    selectedOption.value = -1
-    currentIndex.value++
+    setQuestions(res.data.questions)
   }
 }
 
@@ -142,11 +117,26 @@ async function confirmSubmit() {
   showSubmitModal.value = false
   submitting.value = true
 
+  // 始终存储答案到本地，供报告页在云函数不可用时做本地计算
+  uni.setStorageSync('lastAnswers', JSON.stringify(answers.value))
+  uni.setStorageSync('lastTestId', testId.value)
+
+  // 记录该测评已完成，供首页展示进度
   try {
-    const res = await submitTestResult(testId.value, answers)
+    const raw = uni.getStorageSync('completedTests') || '[]'
+    const completed: string[] = JSON.parse(raw)
+    if (!completed.includes(testId.value)) {
+      completed.push(testId.value)
+    }
+    uni.setStorageSync('completedTests', JSON.stringify(completed))
+  } catch { /* ignore */ }
+
+  try {
+    const res = await submitTestResult(testId.value, answers.value)
     if (res.code === 0) {
+      // 云函数成功：返回首页，携带提交标识，展示阶段总结弹窗
       uni.redirectTo({
-        url: `/pages/report/index?testId=${testId.value}&resultId=${res.data?.resultId || 'local'}`
+        url: `/pages/index/index?from=submit&testId=${testId.value}`
       })
       return
     }
@@ -156,9 +146,9 @@ async function confirmSubmit() {
     submitting.value = false
   }
 
-  // Fallback: 直接跳转到报告页
+  // Fallback: 云函数不可用，仍返回首页（报告页可从首页跳转查看）
   uni.redirectTo({
-    url: `/pages/report/index?testId=${testId.value}&resultId=local`
+    url: `/pages/index/index?from=submit&testId=${testId.value}`
   })
 }
 </script>
