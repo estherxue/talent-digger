@@ -452,6 +452,346 @@ export const mockTalentQuestions: MockQuestion[] = [
   },
 ]
 
+/** 霍兰德职业兴趣完整题目（30 题） */
+export const mockHollandQuestions: MockQuestion[] = [
+  // ---- 实际型 Realistic ---- (h1-h5)
+  {
+    id: 'h1',
+    content: '我喜欢动手操作和修理机械设备',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { realistic: 3 }, 1: { realistic: 2 }, 2: { realistic: 1 }, 3: {} },
+  },
+  {
+    id: 'h2',
+    content: '比起抽象的理论，我更擅长处理具体的、看得见摸得着的问题',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { realistic: 3 }, 1: { realistic: 2 }, 2: { realistic: 1 }, 3: {} },
+  },
+  {
+    id: 'h3',
+    content: '我更喜欢户外活动而不是待在办公室里',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { realistic: 3 }, 1: { realistic: 2 }, 2: { realistic: 1 }, 3: {} },
+  },
+  {
+    id: 'h4',
+    content: '我享受用双手完成实际任务，比如搭建、组装或维修',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { realistic: 3 }, 1: { realistic: 2 }, 2: { realistic: 1 }, 3: {} },
+  },
+  {
+    id: 'h5',
+    content: '我喜欢从事与工具、机器或动植物打交道的工作',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { realistic: 3 }, 1: { realistic: 2 }, 2: { realistic: 1 }, 3: {} },
+  },
+  // ---- 研究型 Investigative ---- (h6-h10)
+  {
+    id: 'h6',
+    content: '我对科学理论和自然规律有着强烈的好奇心',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { investigative: 3 }, 1: { investigative: 2 }, 2: { investigative: 1 }, 3: {} },
+  },
+  {
+    id: 'h7',
+    content: '我喜欢分析数据，从中发现规律和趋势',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { investigative: 3 }, 1: { investigative: 2 }, 2: { investigative: 1 }, 3: {} },
+  },
+  {
+    id: 'h8',
+    content: '面对一个复杂的问题，我会深入思考直到弄懂为止',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { investigative: 3 }, 1: { investigative: 2 }, 2: { investigative: 1 }, 3: {} },
+  },
+  {
+    id: 'h9',
+    content: '我享受阅读科普文章和学术研究报告',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { investigative: 3 }, 1: { investigative: 2 }, 2: { investigative: 1 }, 3: {} },
+  },
+  {
+    id: 'h10',
+    content: '遇到未知事物时，我倾向于独立研究和探索',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { investigative: 3 }, 1: { investigative: 2 }, 2: { investigative: 1 }, 3: {} },
+  },
+  // ---- 艺术型 Artistic ---- (h11-h15)
+  {
+    id: 'h11',
+    content: '我喜欢通过绘画、音乐、写作等方式表达自己',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { artistic: 3 }, 1: { artistic: 2 }, 2: { artistic: 1 }, 3: {} },
+  },
+  {
+    id: 'h12',
+    content: '我对美的事物特别敏感，注重色彩、形状和质感',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { artistic: 3 }, 1: { artistic: 2 }, 2: { artistic: 1 }, 3: {} },
+  },
+  {
+    id: 'h13',
+    content: '比起按部就班，我更喜欢自由发挥和灵活变通',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { artistic: 3 }, 1: { artistic: 2 }, 2: { artistic: 1 }, 3: {} },
+  },
+  {
+    id: 'h14',
+    content: '我经常冒出许多天马行空的创意和想法',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { artistic: 3 }, 1: { artistic: 2 }, 2: { artistic: 1 }, 3: {} },
+  },
+  {
+    id: 'h15',
+    content: '我喜欢设计和创造与众不同的事物',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { artistic: 3 }, 1: { artistic: 2 }, 2: { artistic: 1 }, 3: {} },
+  },
+  // ---- 社会型 Social ---- (h16-h20)
+  {
+    id: 'h16',
+    content: '我喜欢帮助他人解决问题和困难',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { social: 3 }, 1: { social: 2 }, 2: { social: 1 }, 3: {} },
+  },
+  {
+    id: 'h17',
+    content: '我乐于教导或培训他人学习新知识',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { social: 3 }, 1: { social: 2 }, 2: { social: 1 }, 3: {} },
+  },
+  {
+    id: 'h18',
+    content: '我能敏锐地察觉到他人的情绪变化',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { social: 3 }, 1: { social: 2 }, 2: { social: 1 }, 3: {} },
+  },
+  {
+    id: 'h19',
+    content: '我愿意参与志愿服务和社区公益活动',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { social: 3 }, 1: { social: 2 }, 2: { social: 1 }, 3: {} },
+  },
+  {
+    id: 'h20',
+    content: '我喜欢与人打交道，在团队协作中感到充实',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { social: 3 }, 1: { social: 2 }, 2: { social: 1 }, 3: {} },
+  },
+  // ---- 企业型 Enterprise ---- (h21-h25)
+  {
+    id: 'h21',
+    content: '我喜欢领导和管理项目或团队',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { enterprise: 3 }, 1: { enterprise: 2 }, 2: { enterprise: 1 }, 3: {} },
+  },
+  {
+    id: 'h22',
+    content: '我善于说服他人接受我的观点和建议',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { enterprise: 3 }, 1: { enterprise: 2 }, 2: { enterprise: 1 }, 3: {} },
+  },
+  {
+    id: 'h23',
+    content: '我对商业运营和创业充满兴趣',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { enterprise: 3 }, 1: { enterprise: 2 }, 2: { enterprise: 1 }, 3: {} },
+  },
+  {
+    id: 'h24',
+    content: '在团队中我倾向于主动做决策和承担责任',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { enterprise: 3 }, 1: { enterprise: 2 }, 2: { enterprise: 1 }, 3: {} },
+  },
+  {
+    id: 'h25',
+    content: '我享受在公开场合演讲和展示自己的想法',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { enterprise: 3 }, 1: { enterprise: 2 }, 2: { enterprise: 1 }, 3: {} },
+  },
+  // ---- 常规型 Conventional ---- (h26-h30)
+  {
+    id: 'h26',
+    content: '我喜欢按照既定的流程和规范来完成任务',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { conventional: 3 }, 1: { conventional: 2 }, 2: { conventional: 1 }, 3: {} },
+  },
+  {
+    id: 'h27',
+    content: '我擅长整理数据和维护有条理的记录',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { conventional: 3 }, 1: { conventional: 2 }, 2: { conventional: 1 }, 3: {} },
+  },
+  {
+    id: 'h28',
+    content: '比起不确定的任务，我更喜欢结构清晰、目标明确的工作',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { conventional: 3 }, 1: { conventional: 2 }, 2: { conventional: 1 }, 3: {} },
+  },
+  {
+    id: 'h29',
+    content: '我对细节和准确性有着很高的要求',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { conventional: 3 }, 1: { conventional: 2 }, 2: { conventional: 1 }, 3: {} },
+  },
+  {
+    id: 'h30',
+    content: '我喜欢处理数字、财务或行政管理类的工作',
+    options: [
+      { label: 'A', text: '非常符合' },
+      { label: 'B', text: '比较符合' },
+      { label: 'C', text: '不太符合' },
+      { label: 'D', text: '完全不符' },
+    ],
+    scoring: { 0: { conventional: 3 }, 1: { conventional: 2 }, 2: { conventional: 1 }, 3: {} },
+  },
+]
+
 /** 天赋罗盘模拟报告数据 */
 export const mockTalentReport: MockReport = {
   testName: '天赋罗盘测试',

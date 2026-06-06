@@ -2,7 +2,7 @@
 // 使用 wx.cloud.callFunction 调用云函数
 
 import type { TestDefinition } from '@shared/types/test'
-import { mockTalentQuestions } from '@/data/mock/test'
+import { mockTalentQuestions, mockHollandQuestions } from '@/data/mock/test'
 
 export interface ApiResponse<T = any> {
   code: number
@@ -90,7 +90,8 @@ export async function getTestQuestions(testId: string) {
   const res = await callCloudFunction('getTestQuestions', { testId })
   if (res.code === 0 && res.data?.questions?.length > 0) return res
   // 云函数失败时 fallback 到本地 mock 数据
-  return { code: 0, message: 'ok', data: { questions: mockTalentQuestions as any } }
+  const questions = testId === 'test_holland' ? mockHollandQuestions : mockTalentQuestions
+  return { code: 0, message: 'ok', data: { questions: questions as any } }
 }
 
 /** 提交测评结果 */
