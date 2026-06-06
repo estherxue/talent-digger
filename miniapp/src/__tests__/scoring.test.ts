@@ -40,14 +40,15 @@ describe('computeDimensionScores', () => {
   })
 
   it('handles empty answers', () => {
-    const result = computeDimensionScores({}, sampleQuestions)
+    const result = computeDimensionScores({}, sampleQuestions, { normalize: false })
+    expect(Object.keys(result).length).toBeGreaterThan(0)
     Object.values(result).forEach(v => expect(v).toBe(0))
   })
 
   it('normalizes scores to percentages 0-100', () => {
     const answers: Record<string, number> = { q1: 0, q2: 1 }
-    const pct = computeDimensionScores(answers, sampleQuestions, { normalize: true })
-    Object.values(pct).forEach(v => {
+    const result = computeDimensionScores(answers, sampleQuestions, { normalize: true })
+    Object.values(result).forEach(v => {
       expect(v).toBeGreaterThanOrEqual(0)
       expect(v).toBeLessThanOrEqual(100)
     })
@@ -55,7 +56,7 @@ describe('computeDimensionScores', () => {
 
   it('returns all known dimension keys even with zero scores', () => {
     const answers: Record<string, number> = {}
-    const result = computeDimensionScores(answers, sampleQuestions)
+    const result = computeDimensionScores(answers, sampleQuestions, { normalize: false })
     expect(result).toHaveProperty('logic')
     expect(result).toHaveProperty('exec')
     expect(result).toHaveProperty('creativity')
@@ -63,7 +64,7 @@ describe('computeDimensionScores', () => {
   })
 
   it('returns empty object for empty question list', () => {
-    const result = computeDimensionScores({ q1: 0 }, [])
+    const result = computeDimensionScores({ q1: 0 }, [], { normalize: false })
     expect(Object.keys(result).length).toBe(0)
   })
 })

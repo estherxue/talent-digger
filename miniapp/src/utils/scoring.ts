@@ -5,7 +5,6 @@ export interface DimensionScoreResult {
 }
 
 interface ComputeOptions {
-  /** If true, normalize raw scores to 0-100 percentages */
   normalize: boolean
 }
 
@@ -51,6 +50,7 @@ export function computeDimensionScores(
 
   // Normalize to 0-100
   const result: Record<string, number> = {}
+  // Compute the max possible score per question for normalization baseline
   let maxPossible = 0
   for (const q of questions) {
     let questionMax = 0
