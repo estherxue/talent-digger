@@ -1,0 +1,90 @@
+---
+description: Talent Digger miniapp project conventions — tech stack, patterns, and architecture
+alwaysApply: true
+---
+
+# Talent Digger Project Conventions
+
+## Tech Stack
+
+- **Framework**: uni-app (WeChat mini-program target) + Vue 3 Composition API + TypeScript
+- **Build**: Vite 5 with `@dcloudio/vite-plugin-uni`, dev via `UNI_PLATFORM=mp-weixin vite build --watch`
+- **Testing**: vitest (unit tests for composables and utilities), 51 tests across 4 test files
+- **Styles**: SCSS with common variables from `@/styles/common.scss` (via `@use`)
+- **Package manager**: pnpm with workspace (`pnpm-workspace.yaml`)
+- **Monorepo**: `miniapp/`, `shared/` (types), `admin/`
+
+## Directory Structure
+
+```
+miniapp/src/
+├── pages/          # uni-app pages (Vue SFC with <script setup lang="ts">)
+├── composables/    # Vue composables (useAnswerLogic, usePlanLogic)
+├── utils/          # Pure utilities (scoring, summary, error, navigate, devLogger)
+├── api/            # CloudBase cloud function wrappers with mock fallbacks
+├── data/mock/      # Mock questions, reports, test definitions
+├── stores/         # Pinia stores (user)
+├── styles/         # SCSS variables and common classes (common.scss)
+├── __tests__/      # vitest unit tests (composable and utility tests only)
+└── config.ts       # App config from import.meta.env.VITE_*
+shared/types/       # Shared TypeScript interfaces (test.ts)
+```
+
+## Key Patterns
+
+### Storage
+- Use `uni.getStorageSync(key)` / `uni.setStorageSync(key, value)` for local persistence
+- Key naming: `completedTests`, `lastAnswers`, `lastTestId`, `seenStageSummary`, `growthPlans`
+- Always use `try/catch` around storage reads and provide defaults (e.g., `|| '[]'`)
+
+### API
+- Cloud functions called via `wx.cloud.callFunction({ name, data })` with 8s timeout
+- Every API function has a mock/local fallback when cloud is unavailable
+- API response type: `{ code: number, message: string, data: T }` (`code === 0` = success)
+
+### Pages (Vue SFC)
+- Use `<script setup lang="ts">` exclusively
+- Import from `@dcloudio/uni-app`: `onLoad`, `onShow`, `ref`, `computed`
+- Import from `@/utils`: `smartNavigate` (handles tabbar vs regular navigation)
+- SCSS: `@use '@/styles/common.scss' as *;` at top of `<style lang="scss" scoped>`
+- Use `$primary-color`, `$text-primary`, `$text-secondary`, `$text-hint`, `$shadow`, etc.
+
+### Composables
+- Export a factory function (e.g., `useAnswerLogic()`) returning reactive state + methods
+- Use `ref` + `toRaw` + spread for answer reactivity (avoid Proxy set-trap in WeChat runtime)
+- Test every composable with vitest — test reactivity, accumulation, boundary cases
+
+### Scoring
+- Talent compass: 26 questions × 4 options, each option maps to 10 dimensions (logic, creativity, memory, observation, comm, lead, exec, empathy, resilience, learn)
+- `computeDimensionScores(answers, questions, { normalize: true })` returns `{ dimKey: percentage }`
+- `topDimensions(scores, 3)` returns top-3 dimension keys sorted by score
+
+## Nav System
+
+```typescript
+// TabBar pages (use switchTab)
+const TAB_BAR_PAGES = [
+  '/pages/index/index',
+  '/pages/test/index',
+  '/pages/career/index',
+  '/pages/plan/index',
+  '/pages/mine/index',
+]
+// All other pages use navigateTo
+smartNavigate('/pages/test/answer?testId=xxx')
+```
+
+## Dev Workflow
+
+- `pnpm dev` (in miniapp/) = `UNI_PLATFORM=mp-weixin vite build --watch`
+- `pnpm test` = `vitest run`
+- `pnpm log:server` = `node scripts/weapp-log-server.cjs` (dev error logging bridge)
+- Dev errors auto-posted to `http://127.0.0.1:8787/log` in WeChat devtools
+
+## Test Conventions
+
+- Test files: `src/__tests__/<name>.test.ts`, import from `@/` alias
+- Use `vitest` (describe/it/expect) with `jsdom` environment
+- Test composables in isolation (no uni-app runtime needed)
+- Focus on: reactivity accumulation, boundary conditions, normalization, computed outputs
+- Run: `cd miniapp && npx vitest run`
