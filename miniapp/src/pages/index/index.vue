@@ -70,7 +70,6 @@
         </view>
       </view>
     </view>
-    </view>
 
     <!-- 阶段总结弹窗 -->
     <view class="stage-summary-mask" v-if="showStageSummary" @click="closeStageSummary">
