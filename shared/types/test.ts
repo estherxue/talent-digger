@@ -25,13 +25,15 @@ export interface Question {
 
 // 测评定义
 export interface TestDefinition {
-  id: string
+  testId: string
   name: string
   description: string
   dimensions: Dimension[]
   questionCount: number
   estimatedMin: number
   category: 'talent' | 'interest' | 'personality'
+  status?: 'draft' | 'published'
+  createdAt?: number
 }
 
 // 单个维度的得分

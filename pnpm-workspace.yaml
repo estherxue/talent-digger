@@ -4,8 +4,8 @@ packages:
   - 'shared'
   - '!miniapp/cloudfunctions/**'
 allowBuilds:
-  '@parcel/watcher': set this to true or false
-  core-js: set this to true or false
-  core-js-pure: set this to true or false
+  '@parcel/watcher': false
+  core-js: false
+  core-js-pure: false
   esbuild: true
-  vue-demi: set this to true or false
+  vue-demi: false

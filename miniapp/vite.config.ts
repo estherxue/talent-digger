@@ -42,5 +42,13 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src'),
       '@shared': path.resolve(__dirname, '../shared')
     }
+  },
+  server: {
+    fs: {
+      strict: false
+    },
+    watch: {
+      ignored: ['**/node_modules/**', '**/dist/**', '**/.agents/**', '**/logs/**']
+    }
   }
 })

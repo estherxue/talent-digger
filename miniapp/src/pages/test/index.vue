@@ -8,9 +8,9 @@
     <!-- 测评列表 -->
     <view class="section" v-for="section in testSections" :key="section.key">
       <view class="section-title">{{ section.title }}</view>
-      <view class="test-card" v-for="item in sectionItems(section.key)" :key="item.id" @click="startTest(item.id)">
+      <view class="test-card" v-for="item in sectionItems(section.key)" :key="item.testId" @click="startTest(item.testId)">
         <view class="test-card-header">
-          <view class="test-icon" :class="item.id === 'test_talent_compass' ? 'talent-icon' : 'holland-icon'">{{ item.id === 'test_talent_compass' ? '🧠' : '💼' }}</view>
+          <view class="test-icon" :class="item.testId === 'test_talent_compass' ? 'talent-icon' : 'holland-icon'">{{ item.testId === 'test_talent_compass' ? '🧠' : '💼' }}</view>
           <view class="test-info">
             <text class="test-name">{{ item.name }}</text>
             <text class="test-dimensions">{{ item.description }}</text>
@@ -31,6 +31,7 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
 import { getTestList } from '@/api'
+import { smartNavigate } from '@/utils'
 import type { TestDefinition } from '@shared/types/test'
 
 const testList = ref<TestDefinition[]>([])
@@ -62,9 +63,7 @@ onMounted(async () => {
 })
 
 const startTest = (testId: string) => {
-  uni.navigateTo({
-    url: `/pages/test/answer?testId=${testId}`
-  })
+  smartNavigate(`/pages/test/answer?testId=${testId}`)
 }
 </script>
 

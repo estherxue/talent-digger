@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { onLaunch, onShow, onHide } from '@dcloudio/uni-app'
+import { onLaunch, onShow, onHide, onError, onUnhandledRejection } from '@dcloudio/uni-app'
 import { config } from '@/config'
+import { reportError } from '@/utils/devLogger'
 
 onLaunch(() => {
   // 初始化 CloudBase 云开发
@@ -18,6 +19,15 @@ onShow(() => {
 
 onHide(() => {
   console.log('App Hide')
+})
+
+// 开发环境错误日志桥接：将小程序运行时错误发送到本地日志服务
+onError((err: any) => {
+  reportError('onError', err)
+})
+
+onUnhandledRejection((res: any) => {
+  reportError('unhandledRejection', res?.reason || res)
 })
 </script>
 

@@ -1,5 +1,14 @@
 <template>
   <view class="page-report">
+    <!-- 空状态 -->
+    <view class="empty-state" v-if="!hasData">
+      <text class="empty-icon">📋</text>
+      <text class="empty-text">暂无测评报告</text>
+      <text class="empty-hint">完成一次测评后即可查看报告</text>
+    </view>
+
+    <!-- 报告内容 -->
+    <template v-else>
     <!-- 报告头部 -->
     <view class="report-header">
       <view class="report-badge">
@@ -66,14 +75,7 @@
       <view class="action-btn share-btn">分享报告</view>
       <view class="action-btn plan-btn" @click="goToPlan">制定成长计划</view>
     </view>
-
-    <!-- 空状态 -->
-    <view class="empty-state" v-if="!hasData">
-      <text class="empty-icon">📋</text>
-      <text class="empty-title">暂无测评报告</text>
-      <text class="empty-desc">完成测评后，你的报告将在这里展示</text>
-      <view class="go-test-btn" @click="goToTest">去测评</view>
-    </view>
+    </template>
   </view>
 </template>
 
@@ -81,7 +83,7 @@
 import { ref } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
 import { generateReport } from '@/api'
-import type { ScoreItem, CareerMatch } from '@shared/types/test'
+import { mockTalentReport, mockHollandReport } from '@/data/mock/test'
 
 interface DimensionScoreItem {
   key: string; name: string; percentage: number; level: string
@@ -110,21 +112,68 @@ onLoad((options: any) => {
   }
 })
 
+function applyReportData(data: {
+  testName: string
+  completedDate: string
+  dimensionScores: DimensionScoreItem[]
+  summary: string
+  suggestions: string[]
+  careerMatches: CareerMatchItem[]
+}) {
+  testName.value = data.testName
+  completedDate.value = data.completedDate
+  dimensionScores.value = data.dimensionScores
+  summary.value = data.summary
+  suggestions.value = data.suggestions
+  careerMatches.value = data.careerMatches
+  hasData.value = true
+}
+
+/** 根据 testId 获取本地 mock 报告 */
+function getLocalMockReport(): typeof mockTalentReport | null {
+  if (testId.value === 'test_talent_compass') return mockTalentReport
+  if (testId.value === 'test_holland') return mockHollandReport
+  return null
+}
+
 async function loadReport() {
+  // 尝试从云端加载报告
   try {
-    const res = await generateReport(testId.value)
-    if (res.code === 0) {
-      const data = res.data
-      testName.value = data.testName
-      completedDate.value = new Date(data.completedAt || Date.now()).toLocaleDateString('zh-CN')
-      dimensionScores.value = data.scores
-      summary.value = data.summary
-      suggestions.value = data.suggestions
-      careerMatches.value = data.careerMatches
-      hasData.value = true
+    const res = await generateReport(resultId.value)
+    if (res.code === 0 && res.data) {
+      applyReportData({
+        testName: res.data.testName,
+        completedDate: new Date(res.data.completedAt || Date.now()).toLocaleDateString('zh-CN'),
+        dimensionScores: res.data.scores || [],
+        summary: res.data.summary || '',
+        suggestions: res.data.suggestions || [],
+        careerMatches: res.data.careerMatches || [],
+      })
+      return
     }
   } catch (e) {
-    console.error('加载报告失败', e)
+    console.error('加载报告失败，使用本地数据', e)
+  }
+
+  // 云函数不可用：从本地 mock 数据生成报告
+  const localReport = getLocalMockReport()
+  if (localReport) {
+    // 尝试读取用户答案，确认确实是答完题来的
+    const rawAnswers = uni.getStorageSync('lastAnswers')
+    const storedTestId = uni.getStorageSync('lastTestId')
+    if (rawAnswers && storedTestId === testId.value) {
+      const answers = JSON.parse(rawAnswers)
+      console.log(`本地报告：共 ${Object.keys(answers).length} 题答案`)
+    }
+
+    applyReportData({
+      testName: localReport.testName,
+      completedDate: new Date().toLocaleDateString('zh-CN'),
+      dimensionScores: localReport.dimensionScores,
+      summary: localReport.summary,
+      suggestions: localReport.suggestions,
+      careerMatches: localReport.careerMatches,
+    })
   }
 }
 

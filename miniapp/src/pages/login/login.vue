@@ -3,7 +3,7 @@
     <view class="login-container">
       <text class="app-title">Talent Digger</text>
       <text class="app-subtitle">发现天赋，规划未来</text>
-      <button class="login-btn wechat-btn" open-type="getUserInfo">
+      <button class="login-btn wechat-btn" @click="handleWechatLogin">
         微信一键登录
       </button>
       <text class="guest-link" @click="loginAsGuest">游客模式体验</text>

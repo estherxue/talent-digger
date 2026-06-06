@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "wechat-miniprogram-skill": {
+      "source": "Gourdbaby/wechat-miniprogram-skill",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "5c3eb452c959d4f02815cdc7030f609948a0df6553b0aa63d491d4c78b1a5d3c"
+    }
+  }
+}

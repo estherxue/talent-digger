@@ -107,6 +107,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useUserStore } from '@/stores/user'
+import { smartNavigate } from '@/utils'
 
 const userStore = useUserStore()
 // 默认头像（本地资源或云端默认头像）
@@ -119,7 +120,7 @@ const showAbout = ref(false)
 const showPrivacy = ref(false)
 
 const navigateTo = (url: string) => {
-  uni.navigateTo({ url })
+  smartNavigate(url)
 }
 
 const editProfile = () => {
