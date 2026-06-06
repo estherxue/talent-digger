@@ -508,3 +508,76 @@ export const mockHollandReport: MockReport = {
     { careerId: 'h4', careerName: '科研人员', matchScore: 80, reason: '研究型特征明显，适合学术方向' }
   ]
 }
+
+/** Suggested goal generated from test scores */
+export interface PlanRecommendation {
+  title: string
+  priority: 'high' | 'medium' | 'low'
+  reason: string
+}
+
+/**
+ * Generate plan recommendations based on dimension scores.
+ */
+export function generatePlanRecommendations(
+  scores: Record<string, number>,
+): PlanRecommendation[] {
+  const recommendations: PlanRecommendation[] = []
+
+  if ((scores.logic || 0) > 70 || (scores.creativity || 0) > 70) {
+    recommendations.push({
+      title: '学习数据分析或编程技能',
+      priority: 'high',
+      reason: '逻辑与创造力突出，适合技术方向深耕',
+    })
+  }
+
+  if ((scores.comm || 0) < 50 || (scores.lead || 0) < 50) {
+    recommendations.push({
+      title: '参加沟通表达训练',
+      priority: 'high',
+      reason: '表达与领导力有提升空间，针对性训练可放大技术优势',
+    })
+  }
+
+  if ((scores.exec || 0) > 80) {
+    recommendations.push({
+      title: '参与一个实际项目',
+      priority: 'medium',
+      reason: '执行力强，落地项目能最快验证学习成果',
+    })
+  }
+
+  if ((scores.empathy || 0) > 70) {
+    recommendations.push({
+      title: '参与志愿服务或团队协作',
+      priority: 'medium',
+      reason: '共情能力强，在团队协作和人本导向的工作中更有优势',
+    })
+  }
+
+  if ((scores.learn || 0) > 70) {
+    recommendations.push({
+      title: '保持每日阅读或学习30分钟',
+      priority: 'medium',
+      reason: '学习适应能力强，坚持输入会让你快速脱颖而出',
+    })
+  }
+
+  if ((scores.investigative || 0) > 70) {
+    recommendations.push({
+      title: '深入研究一个感兴趣的技术领域',
+      priority: 'high',
+      reason: '研究型特质突出，深度探索会让你找到热爱的方向',
+    })
+  }
+  if ((scores.social || 0) > 70 || (scores.enterprise || 0) > 70) {
+    recommendations.push({
+      title: '参加行业交流活动或社群',
+      priority: 'medium',
+      reason: '社会/企业型特质适合通过人际网络获取职业机会',
+    })
+  }
+
+  return recommendations.slice(0, 5)
+}
