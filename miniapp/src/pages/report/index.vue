@@ -72,7 +72,7 @@
 
     <!-- 底部按钮 -->
     <view class="bottom-actions">
-      <view class="action-btn share-btn">分享报告</view>
+      <button class="action-btn share-btn" open-type="share">分享报告</button>
       <view class="action-btn plan-btn" @click="goToPlan">制定成长计划</view>
     </view>
     </template>
@@ -81,7 +81,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { onLoad } from '@dcloudio/uni-app'
+import { onLoad, onShareAppMessage } from '@dcloudio/uni-app'
 import { generateReport } from '@/api'
 import { computeDimensionScores } from '@/utils/scoring'
 import { careerMatch, combineScores, riasecToTalent } from '@/utils/careerMatch'
@@ -262,6 +262,14 @@ function goToTest() {
 function goToPlan() {
   uni.switchTab({ url: '/pages/plan/index' })
 }
+
+// 微信小程序分享配置
+onShareAppMessage(() => {
+  return {
+    title: `我的${testName.value}测评报告`,
+    path: `/pages/report/index?testId=${testId.value}&resultId=${resultId.value}`,
+  }
+})
 </script>
 
 <style lang="scss" scoped>
@@ -465,11 +473,17 @@ function goToPlan() {
     border-radius: 48rpx;
     font-size: 28rpx;
     font-weight: 500;
+    line-height: 1;
+  }
+
+  .action-btn::after {
+    border: none;
   }
 
   .share-btn {
-    background: #F0F0F0;
-    color: $text-secondary;
+    background: #fff;
+    color: $primary-color;
+    border: 2rpx solid $primary-color;
   }
 
   .plan-btn {
