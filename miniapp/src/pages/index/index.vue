@@ -345,11 +345,12 @@ function viewResult() {
 }
 
 .btn-secondary {
-  background: #F0F0F0;
-  color: $text-secondary;
+  background: #E3F2FD;
+  color: $primary-color;
   font-size: 24rpx;
   padding: 14rpx 28rpx;
   border-radius: 32rpx;
+  font-weight: 500;
   white-space: nowrap;
 }
 

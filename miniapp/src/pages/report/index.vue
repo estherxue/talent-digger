@@ -481,9 +481,14 @@ onShareAppMessage(() => {
   }
 
   .share-btn {
-    background: #fff;
-    color: $primary-color;
-    border: 2rpx solid $primary-color;
+    background: #fff !important;
+    background-color: #fff !important;
+    color: $primary-color !important;
+    border: 2rpx solid $primary-color !important;
+  }
+
+  .share-btn::after {
+    border: none !important;
   }
 
   .plan-btn {
