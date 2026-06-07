@@ -72,7 +72,9 @@
 
     <!-- 底部按钮 -->
     <view class="bottom-actions">
-      <button class="action-btn share-btn" open-type="share">分享报告</button>
+      <button class="share-wrapper" open-type="share" hover-class="none">
+        <view class="action-btn share-btn">分享报告</view>
+      </button>
       <view class="action-btn plan-btn" @click="goToPlan">制定成长计划</view>
     </view>
     </template>
@@ -480,15 +482,26 @@ onShareAppMessage(() => {
     border: none;
   }
 
-  .share-btn {
-    background: #fff !important;
-    background-color: #fff !important;
-    color: $primary-color !important;
-    border: 2rpx solid $primary-color !important;
+  .share-wrapper {
+    flex: 1;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: none;
+    line-height: 1;
+    font-size: inherit;
+    border-radius: 0;
+    display: block;
   }
 
-  .share-btn::after {
-    border: none !important;
+  .share-wrapper::after {
+    border: none;
+  }
+
+  .share-btn {
+    background: #fff;
+    color: $primary-color;
+    border: 2rpx solid $primary-color;
   }
 
   .plan-btn {
