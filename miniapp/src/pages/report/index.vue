@@ -539,3 +539,28 @@ onShareAppMessage(() => {
   }
 }
 </style>
+
+<!-- 非 scoped：重置微信 button 默认样式 -->
+<style>
+.share-wrapper {
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  line-height: 1 !important;
+  min-height: auto !important;
+  border-radius: 0 !important;
+  text-align: left !important;
+}
+
+.share-wrapper::after {
+  border: none !important;
+  display: none !important;
+}
+
+.share-wrapper .share-btn {
+  display: block;
+  width: 100%;
+}
+</style>
