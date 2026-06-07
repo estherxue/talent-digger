@@ -1,5 +1,10 @@
 <template>
   <view class="page-answer">
+    <!-- 测试标题 -->
+    <view class="test-header">
+      <text class="test-title">{{ testName }}</text>
+    </view>
+
     <!-- 进度条 -->
     <view class="progress-bar">
       <view class="progress-inner" :style="{ width: progressPercent + '%' }"></view>
@@ -77,6 +82,7 @@ import { getTestQuestions, submitTestResult } from '@/api'
 import { useAnswerLogic } from '@/composables/useAnswerLogic'
 
 const testId = ref('')
+const testName = ref('')
 const showSubmitModal = ref(false)
 const submitting = ref(false)
 
@@ -99,13 +105,19 @@ const progressPercent = computed(() => ((currentIndex.value + 1) / totalQuestion
 
 onLoad((options: any) => {
   testId.value = options?.testId || ''
+  testName.value = testId.value === 'test_holland' ? '霍兰德职业兴趣' : '天赋罗盘'
+  console.log(`[answer] onLoad testId=${testId.value}, testName=${testName.value}`)
   loadQuestions()
 })
 
 async function loadQuestions() {
   const res = await getTestQuestions(testId.value)
   if (res.code === 0 && res.data?.questions?.length > 0) {
-    setQuestions(res.data.questions)
+    const qs = res.data.questions
+    console.log(`[answer] 收到 ${qs.length} 题，第一题: ${qs[0]?.content?.substring(0, 30)}...`)
+    setQuestions(qs)
+  } else {
+    console.warn(`[answer] 未收到有效题目数据, res=`, res)
   }
 }
 
@@ -134,10 +146,10 @@ async function confirmSubmit() {
   try {
     const res = await submitTestResult(testId.value, answers.value)
     if (res.code === 0) {
-      // 云函数成功：返回首页，携带提交标识，展示阶段总结弹窗
-      uni.redirectTo({
-        url: `/pages/index/index?from=submit&testId=${testId.value}`
-      })
+      submitting.value = false
+      // 云函数成功：返回首页。首页 onShow 通过 storage 读取 lastTestId/lastAnswers
+      // 来展示阶段总结弹窗，无需 URL 传参。
+      uni.switchTab({ url: '/pages/index/index' })
       return
     }
   } catch (e: any) {
@@ -146,10 +158,8 @@ async function confirmSubmit() {
     submitting.value = false
   }
 
-  // Fallback: 云函数不可用，仍返回首页（报告页可从首页跳转查看）
-  uni.redirectTo({
-    url: `/pages/index/index?from=submit&testId=${testId.value}`
-  })
+  // Fallback: 云函数不可用，仍返回首页
+  uni.switchTab({ url: '/pages/index/index' })
 }
 </script>
 
@@ -161,6 +171,17 @@ async function confirmSubmit() {
   display: flex;
   flex-direction: column;
   background: #fff;
+}
+
+.test-header {
+  padding: 24rpx 32rpx 12rpx;
+  background: #fff;
+
+  .test-title {
+    font-size: 32rpx;
+    font-weight: 700;
+    color: $text-primary;
+  }
 }
 
 .progress-bar {
