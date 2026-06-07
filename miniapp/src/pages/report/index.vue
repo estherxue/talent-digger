@@ -194,6 +194,9 @@ function computeOfflineReport(testIdVal: string): {
     const scores = computeDimensionScores(answers, questions, { normalize: true })
     const testType = getTestType(testIdVal)
 
+    console.log('[report] testIdVal=', testIdVal, 'testType=', testType)
+    console.log('[report] computed scores:', JSON.stringify(scores))
+
     const matches = careerMatch(scores, testType, 5)
     const dimList = buildDimensionList(scores)
     const summary = generateReportSummary(scores, matches)

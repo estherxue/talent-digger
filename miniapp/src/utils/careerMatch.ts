@@ -156,6 +156,12 @@ export function careerMatch(
 
   const userVec = toVector(talentScores)
 
+  // 调试：打印实际参与匹配的分数
+  console.log('[careerMatch] testType=', testType)
+  console.log('[careerMatch] input scores:', JSON.stringify(scores))
+  console.log('[careerMatch] talentScores:', JSON.stringify(talentScores))
+  console.log('[careerMatch] userVec:', JSON.stringify(userVec))
+
   // Step 2: Compute cosine similarity for each career
   const matches: CareerMatch[] = CAREER_LIBRARY.map((career, idx) => {
     const careerVec = careerVector(career)
