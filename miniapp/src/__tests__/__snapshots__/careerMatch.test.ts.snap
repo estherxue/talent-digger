@@ -1,0 +1,51 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`careerMatch snapshot > produces consistent top-5 for a fixed answer profile 1`] = `
+[
+  {
+    "name": "科研人员",
+    "score": 68,
+  },
+  {
+    "name": "软件工程师",
+    "score": 65,
+  },
+  {
+    "name": "咨询顾问",
+    "score": 65,
+  },
+  {
+    "name": "运营经理",
+    "score": 63,
+  },
+  {
+    "name": "产品经理",
+    "score": 61,
+  },
+]
+`;
+
+exports[`careerMatch snapshot > produces consistent top-5 for holland scores 1`] = `
+[
+  {
+    "name": "科研人员",
+    "score": 76,
+  },
+  {
+    "name": "软件工程师",
+    "score": 66,
+  },
+  {
+    "name": "咨询顾问",
+    "score": 66,
+  },
+  {
+    "name": "文案/内容创作者",
+    "score": 62,
+  },
+  {
+    "name": "运营经理",
+    "score": 59,
+  },
+]
+`;

@@ -8,25 +8,6 @@ export interface MockQuestion {
   scoring: Record<number, Record<string, number>>
 }
 
-export interface MockReport {
-  testName: string
-  completedDate: string
-  dimensionScores: {
-    key: string
-    name: string
-    percentage: number
-    level: string
-  }[]
-  summary: string
-  suggestions: string[]
-  careerMatches: {
-    careerId: string
-    careerName: string
-    matchScore: number
-    reason: string
-  }[]
-}
-
 /** 天赋罗盘完整题目（26 题）—— 含评分映射 */
 export const mockTalentQuestions: MockQuestion[] = [
   // ---- 逻辑推理 & 执行实操 ---- (q1-q6)
@@ -791,63 +772,6 @@ export const mockHollandQuestions: MockQuestion[] = [
     scoring: { 0: { conventional: 3 }, 1: { conventional: 2 }, 2: { conventional: 1 }, 3: {} },
   },
 ]
-
-/** 天赋罗盘模拟报告数据 */
-export const mockTalentReport: MockReport = {
-  testName: '天赋罗盘测试',
-  completedDate: '2026年5月23日',
-  dimensionScores: [
-    { key: 'logic', name: '逻辑推理', percentage: 85, level: 'high' },
-    { key: 'creativity', name: '创造想象', percentage: 72, level: 'high' },
-    { key: 'memory', name: '记忆能力', percentage: 65, level: 'medium' },
-    { key: 'observation', name: '观察感知', percentage: 78, level: 'high' },
-    { key: 'comm', name: '沟通表达', percentage: 58, level: 'medium' },
-    { key: 'lead', name: '领导组织', percentage: 45, level: 'medium' },
-    { key: 'exec', name: '执行实操', percentage: 90, level: 'high' },
-    { key: 'empathy', name: '同理共情', percentage: 62, level: 'medium' },
-    { key: 'resilience', name: '抗压韧性', percentage: 70, level: 'high' },
-    { key: 'learn', name: '学习适应', percentage: 82, level: 'high' }
-  ],
-  summary: '你的逻辑推理和执行实操能力最为突出，显示出强大的分析问题和落地执行能力。学习适应能力也处于高位，说明你能快速掌握新技能。沟通表达和领导组织有提升空间，建议通过实际项目锻炼。',
-  suggestions: [
-    '发挥逻辑推理优势，从事数据分析、产品管理等相关工作',
-    '结合执行实操能力，尝试项目管理或运营类岗位',
-    '加强沟通表达训练，可通过演讲或写作提升',
-    '参与团队项目，锻炼领导组织能力'
-  ],
-  careerMatches: [
-    { careerId: 'c1', careerName: '数据分析师', matchScore: 92, reason: '逻辑推理能力突出，善于处理复杂数据' },
-    { careerId: 'c2', careerName: '产品经理', matchScore: 88, reason: '分析能力与执行力兼备，适合产品规划' },
-    { careerId: 'c3', careerName: '项目经理', matchScore: 82, reason: '执行力强，善于推动项目落地' },
-    { careerId: 'c4', careerName: '咨询顾问', matchScore: 78, reason: '逻辑清晰，学习能力强' }
-  ]
-}
-
-/** 霍兰德职业兴趣模拟报告数据 */
-export const mockHollandReport: MockReport = {
-  testName: '霍兰德职业兴趣测试',
-  completedDate: new Date().toLocaleDateString('zh-CN'),
-  dimensionScores: [
-    { key: 'realistic', name: '实际型', percentage: 65, level: 'medium' },
-    { key: 'investigative', name: '研究型', percentage: 82, level: 'high' },
-    { key: 'artistic', name: '艺术型', percentage: 45, level: 'medium' },
-    { key: 'social', name: '社会型', percentage: 72, level: 'high' },
-    { key: 'enterprise', name: '企业型', percentage: 58, level: 'medium' },
-    { key: 'conventional', name: '常规型', percentage: 70, level: 'high' }
-  ],
-  summary: '你的研究型和社会型特征较为突出，说明你既善于独立思考和分析问题，也乐于与人合作和交流。建议选择需要分析能力和人际交往相结合的职业方向。',
-  suggestions: [
-    '发挥研究型优势，从事教育科研、数据分析等需要深度思考的工作',
-    '结合社会型特质，尝试咨询、培训等需要人际互动的岗位',
-    '适当发展艺术型和企业型能力，拓宽职业选择面'
-  ],
-  careerMatches: [
-    { careerId: 'h1', careerName: '心理咨询师', matchScore: 90, reason: '研究能力与社会能力兼备，适合心理学方向' },
-    { careerId: 'h2', careerName: '数据分析师', matchScore: 85, reason: '研究能力强，善于深度分析' },
-    { careerId: 'h3', careerName: '教师/培训师', matchScore: 82, reason: '社会型突出，善于知识传授' },
-    { careerId: 'h4', careerName: '科研人员', matchScore: 80, reason: '研究型特征明显，适合学术方向' }
-  ]
-}
 
 /** Suggested goal generated from test scores */
 export interface PlanRecommendation {

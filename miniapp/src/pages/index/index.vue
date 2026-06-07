@@ -106,7 +106,7 @@ import { onShow } from '@dcloudio/uni-app'
 import { smartNavigate } from '@/utils'
 import { computeDimensionScores, topDimensions } from '@/utils/scoring'
 import { generateSummary, dimName } from '@/utils/summary'
-import { mockTalentQuestions } from '@/data/mock/test'
+import { mockTalentQuestions, mockHollandQuestions } from '@/data/mock/test'
 
 const talentDone = ref(false)
 const hollandDone = ref(false)
@@ -152,7 +152,7 @@ function maybeShowSummary() {
     const answers = JSON.parse(rawLastAnswers)
     const questions = rawLastTestId === 'test_talent_compass'
       ? mockTalentQuestions
-      : mockTalentQuestions // fallback: Holland scoring not yet implemented
+      : mockHollandQuestions
     const rawScores = computeDimensionScores(answers, questions, { normalize: true })
     const top = topDimensions(rawScores, 3)
 
@@ -194,7 +194,8 @@ function goToNextTest() {
   if (stageNextTestId.value === 'test_holland') {
     smartNavigate(`/pages/test/answer?testId=${stageNextTestId.value}`)
   } else {
-    smartNavigate('/pages/report/index?testId=test_holland&resultId=local')
+    // 霍兰德完成后，直接跳转综合推荐
+    smartNavigate('/pages/report/index?testId=test_combined&resultId=local')
   }
 }
 
@@ -209,7 +210,7 @@ function startHolland() {
 
 function viewResult() {
   if (!bothDone.value) return
-  smartNavigate('/pages/report/index?testId=test_talent_compass&resultId=local')
+  smartNavigate('/pages/report/index?testId=test_combined&resultId=local')
 }
 </script>
 

@@ -83,7 +83,10 @@
 import { ref } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
 import { generateReport } from '@/api'
-import { mockTalentReport, mockHollandReport } from '@/data/mock/test'
+import { computeDimensionScores } from '@/utils/scoring'
+import { careerMatch, combineScores, riasecToTalent } from '@/utils/careerMatch'
+import { generateReportSummary, generateSuggestions, dimName } from '@/utils/summary'
+import { mockTalentQuestions, mockHollandQuestions, type MockQuestion } from '@/data/mock/test'
 
 interface DimensionScoreItem {
   key: string; name: string; percentage: number; level: string
@@ -129,11 +132,89 @@ function applyReportData(data: {
   hasData.value = true
 }
 
-/** 根据 testId 获取本地 mock 报告 */
-function getLocalMockReport(): typeof mockTalentReport | null {
-  if (testId.value === 'test_talent_compass') return mockTalentReport
-  if (testId.value === 'test_holland') return mockHollandReport
-  return null
+/** 根据 testId 获取题目集 */
+function getQuestionsForTest(testIdVal: string): MockQuestion[] {
+  if (testIdVal === 'test_holland') return mockHollandQuestions
+  return mockTalentQuestions
+}
+
+/** Determine test type string for careerMatch */
+function getTestType(testIdVal: string): 'talent' | 'holland' | 'combined' {
+  if (testIdVal === 'test_holland') return 'holland'
+  if (testIdVal === 'test_combined') return 'combined'
+  return 'talent'
+}
+
+/**
+ * Offline pipeline: compute real scores + matches + summary from stored answers.
+ * Returns null if no answers are available.
+ */
+function computeOfflineReport(testIdVal: string): {
+  dimensionScores: DimensionScoreItem[]
+  summary: string
+  suggestions: string[]
+  careerMatches: CareerMatchItem[]
+} | null {
+  try {
+    if (testIdVal === 'test_combined') {
+      // Combined mode: read both talent and holland answers
+      const rawTalentAnswers = uni.getStorageSync('lastAnswers')
+      const rawTalentTestId = uni.getStorageSync('lastTestId')
+      const rawHollandAnswers = uni.getStorageSync('lastHollandAnswers')
+      const rawHollandTestId = uni.getStorageSync('lastHollandTestId')
+
+      if (!rawTalentAnswers || !rawHollandAnswers) return null
+
+      const talentAnswers = JSON.parse(rawTalentAnswers)
+      const hollandAnswers = JSON.parse(rawHollandAnswers)
+      const talentQs = getQuestionsForTest(rawTalentTestId || 'test_talent_compass')
+      const hollandQs = getQuestionsForTest(rawHollandTestId || 'test_holland')
+
+      const talentScores = computeDimensionScores(talentAnswers, talentQs, { normalize: true })
+      const hollandScores = computeDimensionScores(hollandAnswers, hollandQs, { normalize: true })
+      const combined = combineScores(talentScores, hollandScores)
+
+      const matches = careerMatch(combined, 'combined', 5)
+      const dimList = buildDimensionList(combined)
+      const summary = generateReportSummary(combined, matches)
+      const suggestions = generateSuggestions(combined, matches)
+
+      return { dimensionScores: dimList, summary, suggestions, careerMatches: matches }
+    }
+
+    // Single test mode: read answers from storage
+    const rawAnswers = uni.getStorageSync('lastAnswers')
+    const storedTestId = uni.getStorageSync('lastTestId')
+    if (!rawAnswers || storedTestId !== testIdVal) return null
+
+    const answers = JSON.parse(rawAnswers)
+    const questions = getQuestionsForTest(testIdVal)
+    const scores = computeDimensionScores(answers, questions, { normalize: true })
+    const testType = getTestType(testIdVal)
+
+    const matches = careerMatch(scores, testType, 5)
+    const dimList = buildDimensionList(scores)
+    const summary = generateReportSummary(scores, matches)
+    const suggestions = generateSuggestions(scores, matches)
+
+    return { dimensionScores: dimList, summary, suggestions, careerMatches: matches }
+  } catch (e) {
+    console.error('离线报告计算失败', e)
+    return null
+  }
+}
+
+/** Build dimension score items list from a score map. */
+function buildDimensionList(scores: Record<string, number>): DimensionScoreItem[] {
+  return Object.entries(scores)
+    .filter(([, v]) => v > 0)
+    .sort((a, b) => b[1] - a[1])
+    .map(([key, pct]) => {
+      let level = 'low'
+      if (pct >= 70) level = 'high'
+      else if (pct >= 40) level = 'medium'
+      return { key, name: dimName(key), percentage: Math.round(pct), level }
+    })
 }
 
 async function loadReport() {
@@ -152,27 +233,24 @@ async function loadReport() {
       return
     }
   } catch (e) {
-    console.error('加载报告失败，使用本地数据', e)
+    console.error('加载报告失败，使用离线计算', e)
   }
 
-  // 云函数不可用：从本地 mock 数据生成报告
-  const localReport = getLocalMockReport()
-  if (localReport) {
-    // 尝试读取用户答案，确认确实是答完题来的
-    const rawAnswers = uni.getStorageSync('lastAnswers')
-    const storedTestId = uni.getStorageSync('lastTestId')
-    if (rawAnswers && storedTestId === testId.value) {
-      const answers = JSON.parse(rawAnswers)
-      console.log(`本地报告：共 ${Object.keys(answers).length} 题答案`)
+  // 离线 fallback：根据存储的答案实时计算
+  const offline = computeOfflineReport(testId.value)
+  if (offline) {
+    const testNameMap: Record<string, string> = {
+      test_talent_compass: '天赋罗盘测试',
+      test_holland: '霍兰德职业兴趣测试',
+      test_combined: '综合职业推荐',
     }
-
     applyReportData({
-      testName: localReport.testName,
+      testName: testNameMap[testId.value] || '测评报告',
       completedDate: new Date().toLocaleDateString('zh-CN'),
-      dimensionScores: localReport.dimensionScores,
-      summary: localReport.summary,
-      suggestions: localReport.suggestions,
-      careerMatches: localReport.careerMatches,
+      dimensionScores: offline.dimensionScores,
+      summary: offline.summary,
+      suggestions: offline.suggestions,
+      careerMatches: offline.careerMatches,
     })
   }
 }

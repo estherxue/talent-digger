@@ -1,0 +1,17 @@
+[
+  {"name": "数据分析师", "category": "技术/数据", "dimensionTags": ["logic", "observation"], "riasecTags": ["I", "C"], "suggestions": "逻辑推理和观察感知能力突出，适合从事数据分析相关工作。"},
+  {"name": "产品经理", "category": "产品/设计", "dimensionTags": ["logic", "comm", "exec", "lead"], "riasecTags": ["E", "I", "S"], "suggestions": "分析能力和沟通能力兼备，适合产品方向。"},
+  {"name": "软件工程师", "category": "技术/研发", "dimensionTags": ["logic", "exec", "learn"], "riasecTags": ["I", "R", "C"], "suggestions": "逻辑推理和学习适应能力突出，编程方向是天然选择。"},
+  {"name": "UI/UX设计师", "category": "设计/创意", "dimensionTags": ["creativity", "observation", "empathy"], "riasecTags": ["A", "I"], "suggestions": "创造力和同理心突出，设计方向能很好发挥你的天赋。"},
+  {"name": "心理咨询师", "category": "教育/咨询", "dimensionTags": ["empathy", "comm", "observation"], "riasecTags": ["S", "I"], "suggestions": "同理心和沟通能力突出，心理咨询方向能让你的天赋得到最好的发挥。"},
+  {"name": "项目经理", "category": "管理/运营", "dimensionTags": ["lead", "exec", "comm", "resilience"], "riasecTags": ["E", "C", "S"], "suggestions": "领导力和执行力突出，项目管理是理想的职业方向。"},
+  {"name": "教师/培训师", "category": "教育/培训", "dimensionTags": ["comm", "empathy", "learn"], "riasecTags": ["S", "A"], "suggestions": "沟通和共情能力突出，教育方向是发挥天赋的好选择。"},
+  {"name": "市场营销经理", "category": "市场/营销", "dimensionTags": ["creativity", "comm", "lead"], "riasecTags": ["E", "A"], "suggestions": "创造力和沟通能力突出，市场营销能充分发挥你的创意和表达天赋。"},
+  {"name": "科研人员", "category": "学术/研究", "dimensionTags": ["logic", "memory", "learn", "observation"], "riasecTags": ["I", "R"], "suggestions": "逻辑推理和学习能力突出，科研方向适合深入探索未知领域。"},
+  {"name": "创业/自由职业者", "category": "创业/商业", "dimensionTags": ["lead", "resilience", "exec", "creativity"], "riasecTags": ["E", "A"], "suggestions": "领导力和抗压能力突出，创业方向能最大程度发挥你的综合天赋。"},
+  {"name": "文案/内容创作者", "category": "传媒/内容", "dimensionTags": ["creativity", "comm", "learn"], "riasecTags": ["A", "S"], "suggestions": "创造力和表达能力突出，内容创作能让你的想法影响更多人。"},
+  {"name": "人力资源经理", "category": "管理/行政", "dimensionTags": ["comm", "empathy", "lead", "observation"], "riasecTags": ["S", "E", "C"], "suggestions": "沟通和共情能力突出，人力资源管理能很好地发挥你的人际天赋。"},
+  {"name": "咨询顾问", "category": "咨询/服务", "dimensionTags": ["logic", "comm", "learn", "resilience"], "riasecTags": ["I", "E", "S"], "suggestions": "逻辑分析能力突出，咨询行业能快速积累经验和知识。"},
+  {"name": "运营经理", "category": "运营/管理", "dimensionTags": ["exec", "observation", "learn"], "riasecTags": ["C", "E"], "suggestions": "执行力和观察力突出，运营方向需要持续优化细节和流程。"},
+  {"name": "销售经理", "category": "销售/业务", "dimensionTags": ["comm", "resilience", "exec"], "riasecTags": ["E", "S"], "suggestions": "沟通和抗压能力突出，销售方向能让你的社交天赋得到最好回报。"}
+]
