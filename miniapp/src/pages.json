@@ -53,6 +53,12 @@
       }
     },
     {
+      "path": "pages/career/detail",
+      "style": {
+        "navigationBarTitleText": "职业详情"
+      }
+    },
+    {
       "path": "pages/plan/index",
       "style": {
         "navigationBarTitleText": "成长计划"

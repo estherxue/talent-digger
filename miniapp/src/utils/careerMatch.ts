@@ -53,6 +53,16 @@ interface RiasecMappingEntry {
   secondary: [string, number][]
 }
 
+/** Map full RIASEC dimension names to single-letter codes. */
+const RIASEC_NAME_TO_CODE: Record<string, string> = {
+  realistic: 'R',
+  investigative: 'I',
+  artistic: 'A',
+  social: 'S',
+  enterprise: 'E',
+  conventional: 'C',
+}
+
 const RIASEC_MAPPING: Record<string, RiasecMappingEntry> = {
   R: { primary: ['exec', 1.0], secondary: [['resilience', 0.7], ['observation', 0.7]] },
   I: { primary: ['logic', 1.0], secondary: [['learn', 0.7], ['observation', 0.7]] },
@@ -60,6 +70,16 @@ const RIASEC_MAPPING: Record<string, RiasecMappingEntry> = {
   S: { primary: ['empathy', 1.0], secondary: [['comm', 0.7]] },
   E: { primary: ['lead', 1.0], secondary: [['comm', 0.7], ['resilience', 0.7]] },
   C: { primary: ['exec', 1.0], secondary: [['observation', 0.7], ['memory', 0.7]] },
+}
+
+/** Normalize full RIASEC names to single-letter codes (e.g. "realistic" → "R"). */
+function normalizeRiasecKeys(scores: Record<string, number>): Record<string, number> {
+  const normalized: Record<string, number> = {}
+  for (const [key, value] of Object.entries(scores)) {
+    const code = RIASEC_NAME_TO_CODE[key] || key
+    normalized[code] = (normalized[code] || 0) + value
+  }
+  return normalized
 }
 
 /** Compute cosine similarity between two equal-length numeric vectors. */
@@ -82,8 +102,9 @@ export function riasecToTalent(
   riasecScores: Record<string, number>,
 ): Record<string, number> {
   const raw: Record<string, number> = {}
+  const normalized = normalizeRiasecKeys(riasecScores)
 
-  for (const [riasecType, userPct] of Object.entries(riasecScores)) {
+  for (const [riasecType, userPct] of Object.entries(normalized)) {
     const mapping = RIASEC_MAPPING[riasecType]
     if (!mapping) continue
 

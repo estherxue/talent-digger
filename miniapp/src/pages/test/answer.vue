@@ -130,14 +130,15 @@ async function confirmSubmit() {
   submitting.value = true
 
   // 始终存储答案到本地，供报告页在云函数不可用时做本地计算
-  uni.setStorageSync('lastAnswers', JSON.stringify(answers.value))
   uni.setStorageSync('lastTestId', testId.value)
 
-  // Holland 测试额外保存，供综合模式使用（设计文档 §3.1）
   if (testId.value === 'test_holland') {
     uni.setStorageSync('lastHollandAnswers', JSON.stringify(answers.value))
     uni.setStorageSync('lastHollandTestId', testId.value)
     console.log('[answer] 已保存 lastHollandAnswers 供综合推荐使用')
+  } else {
+    uni.setStorageSync('lastAnswers', JSON.stringify(answers.value))
+    uni.setStorageSync('lastTalentTestId', testId.value)
   }
 
   // 记录该测评已完成，供首页展示进度

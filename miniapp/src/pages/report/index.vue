@@ -7,6 +7,14 @@
       <text class="empty-hint">完成一次测评后即可查看报告</text>
     </view>
 
+    <!-- 数据不完整提示 -->
+    <view class="empty-state" v-else-if="hasData && !hasMeaningfulScores">
+      <text class="empty-icon">⚠️</text>
+      <text class="empty-text">测评数据不完整</text>
+      <text class="empty-hint">请重新完成测评后再查看报告</text>
+      <view class="go-test-btn" @click="goToTest">去测评</view>
+    </view>
+
     <!-- 报告内容 -->
     <template v-else>
     <!-- 报告头部 -->
@@ -57,16 +65,22 @@
     <view class="report-section">
       <view class="section-title">🎯 职业方向推荐</view>
       <view class="career-list" v-if="careerMatches.length > 0">
-        <view class="career-item" v-for="career in careerMatches" :key="career.careerId">
+        <view class="career-item" v-for="career in careerMatches" :key="career.careerId" @click="viewCareerDetail(career.careerName)">
           <view class="career-info">
             <text class="career-name">{{ career.careerName }}</text>
             <text class="career-reason">{{ career.reason }}</text>
           </view>
-          <view class="career-match">
-            <text class="match-score">{{ career.matchScore }}%</text>
-            <text class="match-label">匹配度</text>
+          <view class="career-right">
+            <view class="career-match">
+              <text class="match-score">{{ career.matchScore }}%</text>
+              <text class="match-label">匹配</text>
+            </view>
+            <text class="career-arrow">›</text>
           </view>
         </view>
+      </view>
+      <view class="career-hint" v-if="careerMatches.length > 0">
+        <text>👆 点击职业查看成功人物与职业轨迹</text>
       </view>
     </view>
 
@@ -82,11 +96,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { onLoad, onShareAppMessage } from '@dcloudio/uni-app'
 import { generateReport } from '@/api'
 import { computeDimensionScores } from '@/utils/scoring'
-import { careerMatch, combineScores, riasecToTalent } from '@/utils/careerMatch'
+import { careerMatch, combineScores } from '@/utils/careerMatch'
 import { generateReportSummary, generateSuggestions, dimName } from '@/utils/summary'
 import { mockTalentQuestions, mockHollandQuestions, type MockQuestion } from '@/data/mock/test'
 
@@ -105,6 +119,10 @@ const summary = ref('')
 const suggestions = ref<string[]>([])
 const careerMatches = ref<CareerMatchItem[]>([])
 const hasData = ref(false)
+
+const hasMeaningfulScores = computed(() => {
+  return dimensionScores.value.length > 0 && dimensionScores.value.some(d => d.percentage > 0)
+})
 
 const testId = ref('')
 const resultId = ref('')
@@ -161,7 +179,7 @@ function computeOfflineReport(testIdVal: string): {
     if (testIdVal === 'test_combined') {
       // Combined mode: read both talent and holland answers
       const rawTalentAnswers = uni.getStorageSync('lastAnswers')
-      const rawTalentTestId = uni.getStorageSync('lastTestId')
+      const rawTalentTestId = uni.getStorageSync('lastTalentTestId') || uni.getStorageSync('lastTestId')
       const rawHollandAnswers = uni.getStorageSync('lastHollandAnswers')
       const rawHollandTestId = uni.getStorageSync('lastHollandTestId')
 
@@ -175,6 +193,18 @@ function computeOfflineReport(testIdVal: string): {
       const talentScores = computeDimensionScores(talentAnswers, talentQs, { normalize: true })
       const hollandScores = computeDimensionScores(hollandAnswers, hollandQs, { normalize: true })
       const combined = combineScores(talentScores, hollandScores)
+
+      // Defensive: check if all scores are zero, which indicates a data mismatch
+      const allZero = Object.values(combined).every(v => v === 0)
+      if (allZero) {
+        console.error('[report] 综合评分全为零！可能原因：')
+        console.error('  - talentAnswers keys:', JSON.stringify(Object.keys(talentAnswers).slice(0, 5)))
+        console.error('  - talentQs IDs:', JSON.stringify(talentQs.slice(0, 3).map(q => q.id)))
+        console.error('  - hollandAnswers keys:', JSON.stringify(Object.keys(hollandAnswers).slice(0, 5)))
+        console.error('  - hollandQs IDs:', JSON.stringify(hollandQs.slice(0, 3).map(q => q.id)))
+        console.error('  - talentScores:', JSON.stringify(talentScores))
+        console.error('  - hollandScores:', JSON.stringify(hollandScores))
+      }
 
       const matches = careerMatch(combined, 'combined', 5)
       const dimList = buildDimensionList(combined)
@@ -196,6 +226,14 @@ function computeOfflineReport(testIdVal: string): {
 
     console.log('[report] testIdVal=', testIdVal, 'testType=', testType)
     console.log('[report] computed scores:', JSON.stringify(scores))
+
+    // Defensive: check if all scores are zero
+    const allZero = Object.values(scores).every(v => v === 0)
+    if (allZero) {
+      console.error('[report] 单测评分全为零！可能原因：')
+      console.error('  - answers keys:', JSON.stringify(Object.keys(answers).slice(0, 5)))
+      console.error('  - questions IDs:', JSON.stringify(questions.slice(0, 3).map(q => q.id)))
+    }
 
     const matches = careerMatch(scores, testType, 5)
     const dimList = buildDimensionList(scores)
@@ -262,6 +300,10 @@ async function loadReport() {
 
 function goToTest() {
   uni.switchTab({ url: '/pages/test/index' })
+}
+
+function viewCareerDetail(careerName: string) {
+  uni.navigateTo({ url: `/pages/career/detail?careerName=${encodeURIComponent(careerName)}` })
 }
 
 function goToPlan() {
@@ -435,6 +477,7 @@ onShareAppMessage(() => {
   .career-info {
     flex: 1;
     margin-right: 20rpx;
+    min-width: 0;
 
     .career-name {
       font-size: 28rpx;
@@ -449,8 +492,15 @@ onShareAppMessage(() => {
     }
   }
 
+  .career-right {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
   .career-match {
     text-align: center;
+    margin-right: 12rpx;
 
     .match-score {
       font-size: 36rpx;
@@ -463,6 +513,22 @@ onShareAppMessage(() => {
       font-size: 20rpx;
       color: $text-hint;
     }
+  }
+
+  .career-arrow {
+    font-size: 40rpx;
+    color: #CCC;
+    font-weight: 300;
+  }
+}
+
+.career-hint {
+  text-align: center;
+  margin-top: 24rpx;
+
+  text {
+    font-size: 22rpx;
+    color: $text-hint;
   }
 }
 
