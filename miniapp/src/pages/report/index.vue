@@ -63,24 +63,30 @@
     </view>
 
     <view class="report-section">
-      <view class="section-title">🎯 职业方向推荐</view>
+      <view class="section-title">
+        <text>🎯 职业方向推荐</text>
+        <text class="section-subtitle">点击卡片查看行业成功人物与职业轨迹</text>
+      </view>
       <view class="career-list" v-if="careerMatches.length > 0">
         <view class="career-item" v-for="career in careerMatches" :key="career.careerId" @click="viewCareerDetail(career.careerName)">
-          <view class="career-info">
-            <text class="career-name">{{ career.careerName }}</text>
-            <text class="career-reason">{{ career.reason }}</text>
-          </view>
-          <view class="career-right">
+          <view class="career-top">
+            <view class="career-info">
+              <text class="career-name">{{ career.careerName }}</text>
+              <text class="career-reason">{{ career.reason }}</text>
+            </view>
             <view class="career-match">
               <text class="match-score">{{ career.matchScore }}%</text>
               <text class="match-label">匹配</text>
             </view>
-            <text class="career-arrow">›</text>
+          </view>
+          <view class="career-bottom">
+            <view class="career-model-btn">
+              <text class="model-btn-icon">🌟</text>
+              <text class="model-btn-text">查看行业标杆</text>
+              <text class="model-btn-arrow">→</text>
+            </view>
           </view>
         </view>
-      </view>
-      <view class="career-hint" v-if="careerMatches.length > 0">
-        <text>👆 点击职业查看成功人物与职业轨迹</text>
       </view>
     </view>
 
@@ -423,7 +429,17 @@ onShareAppMessage(() => {
   .section-title {
     font-size: 30rpx;
     font-weight: 600;
-    margin-bottom: 20rpx;
+    margin-bottom: 8rpx;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .section-subtitle {
+    font-size: 22rpx;
+    color: $primary-color;
+    font-weight: 400;
+    margin-top: 4rpx;
+    margin-bottom: 16rpx;
   }
 }
 
@@ -466,13 +482,26 @@ onShareAppMessage(() => {
 }
 
 .career-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20rpx 0;
-  border-bottom: 1rpx solid #F0F0F0;
+  background: #F8FAFE;
+  border-radius: 14rpx;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+  border: 1rpx solid #E8EEF6;
+  transition: all 0.2s;
 
-  &:last-child { border-bottom: none; }
+  &:last-child { margin-bottom: 0; }
+
+  &:active {
+    background: #EEF3FB;
+    border-color: $primary-color;
+  }
+
+  .career-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16rpx;
+  }
 
   .career-info {
     flex: 1;
@@ -481,7 +510,7 @@ onShareAppMessage(() => {
 
     .career-name {
       font-size: 28rpx;
-      font-weight: 500;
+      font-weight: 600;
       display: block;
       margin-bottom: 4rpx;
     }
@@ -489,21 +518,16 @@ onShareAppMessage(() => {
     .career-reason {
       font-size: 22rpx;
       color: $text-hint;
+      line-height: 1.4;
     }
-  }
-
-  .career-right {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
   }
 
   .career-match {
     text-align: center;
-    margin-right: 12rpx;
+    flex-shrink: 0;
 
     .match-score {
-      font-size: 36rpx;
+      font-size: 34rpx;
       font-weight: 700;
       color: $primary-color;
       display: block;
@@ -515,20 +539,37 @@ onShareAppMessage(() => {
     }
   }
 
-  .career-arrow {
-    font-size: 40rpx;
-    color: #CCC;
-    font-weight: 300;
+  .career-bottom {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 14rpx;
+    border-top: 1rpx dashed #DDE4EF;
   }
-}
 
-.career-hint {
-  text-align: center;
-  margin-top: 24rpx;
+  .career-model-btn {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #FFF7E6, #FFF3D6);
+    border: 1rpx solid #F0C060;
+    border-radius: 28rpx;
+    padding: 10rpx 22rpx;
 
-  text {
-    font-size: 22rpx;
-    color: $text-hint;
+    .model-btn-icon {
+      font-size: 24rpx;
+      margin-right: 6rpx;
+    }
+
+    .model-btn-text {
+      font-size: 24rpx;
+      color: #B8860B;
+      font-weight: 500;
+    }
+
+    .model-btn-arrow {
+      font-size: 24rpx;
+      color: #D4A030;
+      margin-left: 6rpx;
+    }
   }
 }
 
