@@ -1,20 +1,114 @@
-// Talent Digger 全局样式变量
-$primary-color: #4A90D9;
-$primary-light: #7AB8F5;
-$primary-dark: #2E6AB0;
-$success-color: #52C41A;
-$warning-color: #FAAD14;
-$error-color: #F5222D;
-$text-primary: #333333;
-$text-secondary: #666666;
-$text-hint: #999999;
-$bg-color: #F8F9FA;
-$card-bg: #FFFFFF;
-$border-color: #E8E8E8;
-$radius: 12rpx;
-$shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
+// ══════════════════════════════════════════
+// Talent Digger — Modern Design System
+// ══════════════════════════════════════════
 
-// 通用 flex 布局
+// ── Color Palette ──────────────────────
+// Primary: Indigo-Violet spectrum
+$primary-color: #6366F1;
+$primary-light: #818CF8;
+$primary-lighter: #A5B4FC;
+$primary-lightest: #E0E7FF;
+$primary-dark: #4F46E5;
+$primary-darker: #3730A3;
+
+// Secondary / Accent
+$accent-color: #8B5CF6;
+$accent-light: #A78BFA;
+$accent-lightest: #EDE9FE;
+
+// Functional colors
+$success-color: #10B981;
+$success-light: #34D399;
+$success-lightest: #D1FAE5;
+$warning-color: #F59E0B;
+$warning-light: #FBBF24;
+$warning-lightest: #FEF3C7;
+$error-color: #EF4444;
+$error-light: #F87171;
+$error-lightest: #FEE2E2;
+
+// Neutrals
+$text-primary: #1E1B4B;
+$text-secondary: #4B5563;
+$text-hint: #9CA3AF;
+$text-disabled: #D1D5DB;
+$bg-color: #F5F3FF;
+$card-bg: #FFFFFF;
+$border-color: #E5E7EB;
+$border-light: #F3F4F6;
+
+// ── Gradients ──────────────────────────
+$gradient-primary: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+$gradient-primary-soft: linear-gradient(135deg, #818CF8 0%, #A78BFA 100%);
+$gradient-hero: linear-gradient(180deg, #EEF2FF 0%, #E0E7FF 30%, #FAF5FF 70%, #FFFFFF 100%);
+$gradient-card: linear-gradient(180deg, #EEF2FF 0%, #FFFFFF 100%);
+$gradient-card-accent: linear-gradient(135deg, #F0E6FF 0%, #EDE9FE 50%, #E0E7FF 100%);
+$gradient-success: linear-gradient(135deg, #10B981 0%, #34D399 100%);
+$gradient-warning: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%);
+$gradient-error: linear-gradient(135deg, #EF4444 0%, #F87171 100%);
+$gradient-cool: linear-gradient(135deg, #6366F1 0%, #2DD4BF 100%);
+$gradient-warm: linear-gradient(135deg, #F43F5E 0%, #F59E0B 100%);
+
+// ── Shadows ────────────────────────────
+$shadow-none: 0 0 0 rgba(0, 0, 0, 0);
+$shadow-sm: 0 1rpx 4rpx rgba(0, 0, 0, 0.04);
+$shadow-md: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 8rpx 32rpx rgba(0, 0, 0, 0.08);
+$shadow-xl: 0 16rpx 48rpx rgba(0, 0, 0, 0.10);
+$shadow-glow: 0 4rpx 24rpx rgba(99, 102, 241, 0.15);
+$shadow-glow-lg: 0 8rpx 40rpx rgba(99, 102, 241, 0.20);
+$shadow: $shadow-md; // backwards compat
+
+// ── Border Radius ──────────────────────
+$radius-sm: 8rpx;
+$radius-md: 16rpx;
+$radius-lg: 24rpx;
+$radius-xl: 32rpx;
+$radius-2xl: 40rpx;
+$radius-full: 9999rpx;
+$radius: $radius-md; // backwards compat
+
+// ── Spacing Scale ──────────────────────
+$spacing-xs: 8rpx;
+$spacing-sm: 16rpx;
+$spacing-md: 24rpx;
+$spacing-lg: 32rpx;
+$spacing-xl: 48rpx;
+$spacing-2xl: 64rpx;
+
+// ── Typography ─────────────────────────
+$font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$line-height-relaxed: 1.75;
+$line-height-normal: 1.6;
+$line-height-tight: 1.35;
+$letter-spacing-title: 0.02em;
+
+// ── Animation ──────────────────────────
+$transition-fast: 0.15s ease;
+$transition-base: 0.25s ease;
+$transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+$transition-spring: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+// ── Glass Morphism ─────────────────────
+@mixin glass {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(20rpx);
+  -webkit-backdrop-filter: blur(20rpx);
+  border: 1rpx solid rgba(255, 255, 255, 0.3);
+}
+
+@mixin glass-dark {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20rpx);
+  -webkit-backdrop-filter: blur(20rpx);
+  border: 1rpx solid rgba(255, 255, 255, 0.2);
+}
+
+// ── Common Layout Classes ──────────────
 .flex-center {
   display: flex;
   align-items: center;
@@ -27,25 +121,159 @@ $shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
   justify-content: space-between;
 }
 
-// 通用按钮
+// ── Button Styles ──────────────────────
 .btn-primary {
-  background: linear-gradient(135deg, $primary-color, $primary-light);
+  background: $gradient-primary;
   color: #fff;
-  border-radius: $radius;
-  padding: 24rpx 48rpx;
+  border-radius: $radius-full;
+  padding: 22rpx 48rpx;
   border: none;
-  font-size: 32rpx;
+  font-size: 30rpx;
+  font-weight: $font-weight-medium;
+  box-shadow: $shadow-glow;
+  transition: all $transition-smooth;
 
   &:active {
-    opacity: 0.8;
+    opacity: 0.85;
+    transform: scale(0.97);
   }
 }
 
-// 卡片样式
+.btn-secondary {
+  background: $primary-lightest;
+  color: $primary-color;
+  border-radius: $radius-full;
+  padding: 20rpx 40rpx;
+  font-size: 28rpx;
+  font-weight: $font-weight-medium;
+  transition: all $transition-smooth;
+
+  &:active {
+    background: darken(#E0E7FF, 5%);
+    transform: scale(0.97);
+  }
+}
+
+.btn-outline {
+  background: transparent;
+  color: $primary-color;
+  border: 2rpx solid $primary-lighter;
+  border-radius: $radius-full;
+  padding: 20rpx 40rpx;
+  font-size: 28rpx;
+  font-weight: $font-weight-medium;
+  transition: all $transition-smooth;
+
+  &:active {
+    background: $primary-lightest;
+  }
+}
+
+// ── Card Styles ────────────────────────
 .card {
   background: $card-bg;
-  border-radius: $radius;
-  padding: 32rpx;
-  margin: 24rpx;
-  box-shadow: $shadow;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin: $spacing-md;
+  box-shadow: $shadow-md;
+  transition: all $transition-smooth;
+
+  &:active {
+    transform: scale(0.98);
+    box-shadow: $shadow-sm;
+  }
+}
+
+.card-elevated {
+  @extend .card;
+  box-shadow: $shadow-lg;
+
+  &:active {
+    box-shadow: $shadow-md;
+  }
+}
+
+// ── Section Headers ────────────────────
+.section-header {
+  padding: 40rpx 8rpx 28rpx;
+
+  .section-header-title {
+    font-size: 40rpx;
+    font-weight: $font-weight-bold;
+    color: $text-primary;
+    display: block;
+    margin-bottom: 8rpx;
+    letter-spacing: $letter-spacing-title;
+  }
+
+  .section-header-desc {
+    font-size: 26rpx;
+    color: $text-hint;
+    line-height: $line-height-relaxed;
+  }
+}
+
+// ── Badge / Tag Presets ────────────────
+@mixin badge($bg, $color) {
+  background: $bg;
+  color: $color;
+  font-size: 22rpx;
+  padding: 6rpx 18rpx;
+  border-radius: $radius-full;
+  font-weight: $font-weight-medium;
+  display: inline-block;
+}
+
+.badge-primary { @include badge($primary-lightest, $primary-dark); }
+.badge-success { @include badge($success-lightest, #047857); }
+.badge-warning { @include badge($warning-lightest, #B45309); }
+.badge-error { @include badge($error-lightest, #B91C1C); }
+
+// ── Empty State ────────────────────────
+.empty-state-base {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 120rpx 40rpx;
+}
+
+// ── Page Background ────────────────────
+.page-bg {
+  min-height: 100vh;
+  background: $gradient-hero;
+}
+
+// ── Modal masks ────────────────────────
+.modal-mask {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(15, 23, 42, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40rpx); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+// ── Skeleton shimmer ───────────────────
+.skeleton {
+  background: linear-gradient(90deg, #F3F4F6 25%, #E5E7EB 50%, #F3F4F6 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: $radius-sm;
 }

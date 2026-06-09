@@ -245,59 +245,115 @@ function repeatLabel(r: string) {
 <style lang="scss" scoped>
 @use '@/styles/common.scss' as *;
 
-.page-plan { padding: 0 24rpx 40rpx; min-height: 100vh; background: #F5F7FA; }
+.page-plan {
+  padding: 0 $spacing-md 60rpx;
+  min-height: 100vh;
+  background: $gradient-hero;
+}
 
 .page-header {
   display: flex; justify-content: space-between; align-items: center;
-  padding: 40rpx 8rpx 32rpx;
+  padding: 48rpx 8rpx 32rpx;
 
-  .page-title { font-size: 40rpx; font-weight: 700; }
+  .page-title {
+    font-size: 42rpx;
+    font-weight: $font-weight-bold;
+    color: $text-primary;
+    letter-spacing: $letter-spacing-title;
+  }
 
   .add-btn {
-    background: $primary-color; color: #fff; padding: 14rpx 28rpx;
-    border-radius: 32rpx; font-size: 26rpx;
+    background: $gradient-primary;
+    color: #fff;
+    padding: 16rpx 32rpx;
+    border-radius: $radius-full;
+    font-size: 26rpx;
+    font-weight: $font-weight-medium;
+    box-shadow: $shadow-glow;
   }
 }
 
 .plan-card {
-  background: $card-bg; border-radius: 16rpx; padding: 28rpx; margin-bottom: 20rpx; box-shadow: $shadow;
+  position: relative;
+  background: $card-bg;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: 20rpx;
+  box-shadow: $shadow-md;
+  transition: all $transition-smooth;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 6rpx;
+    height: 100%;
+    background: $gradient-primary;
+    border-radius: 6rpx 0 0 6rpx;
+  }
 }
 
-.plan-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12rpx; }
-.plan-name { font-size: 30rpx; font-weight: 600; }
+.plan-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 16rpx;
+}
+.plan-name {
+  font-size: 30rpx;
+  font-weight: $font-weight-semibold;
+  color: $text-primary;
+}
 
 .plan-period {
-  font-size: 22rpx; padding: 4rpx 16rpx; border-radius: 20rpx;
+  font-size: 22rpx;
+  padding: 6rpx 18rpx;
+  border-radius: $radius-full;
+  font-weight: $font-weight-medium;
 
-  &.short { background: #E8F5E9; color: #4CAF50; }
-  &.medium { background: #FFF3E0; color: #FF9800; }
-  &.long { background: #E3F2FD; color: #2196F3; }
+  &.short { background: $success-lightest; color: #047857; }
+  &.medium { background: $warning-lightest; color: #B45309; }
+  &.long { background: $primary-lightest; color: $primary-dark; }
 }
 
 .plan-progress { margin-bottom: 16rpx; }
 
 .progress-text {
-  font-size: 24rpx; color: $text-hint; display: block; margin-bottom: 8rpx;
+  font-size: 24rpx; color: $text-hint; display: block; margin-bottom: 10rpx;
 
-  .streak { color: #FF9800; font-weight: 500; }
+  .streak { color: $warning-color; font-weight: $font-weight-medium; }
 }
 
-.progress-bar { height: 8rpx; background: #F0F0F0; border-radius: 4rpx; overflow: hidden; }
-.bar-inner { height: 100%; background: $primary-color; border-radius: 4rpx; transition: width 0.3s; }
+.progress-bar {
+  height: 10rpx;
+  background: $border-color;
+  border-radius: 5rpx;
+  overflow: hidden;
+}
+
+.bar-inner {
+  height: 100%;
+  background: $gradient-primary;
+  border-radius: 5rpx;
+  transition: width $transition-smooth;
+}
 
 .goal-item { margin-top: 12rpx; }
 
 .goal-main {
-  display: flex; align-items: flex-start; padding: 16rpx 12rpx;
-  background: #F8F9FA; border-radius: 10rpx;
+  display: flex; align-items: flex-start; padding: 18rpx 16rpx;
+  background: linear-gradient(135deg, #F8FAFC, #F1F5F9);
+  border-radius: $radius-sm;
+  transition: background $transition-base;
 }
 
 .goal-check {
-  width: 40rpx; height: 40rpx; border-radius: 50%; border: 3rpx solid #D0D0D0;
-  margin-right: 12rpx; display: flex; align-items: center; justify-content: center;
+  width: 44rpx; height: 44rpx; border-radius: 50%;
+  border: 3rpx solid $border-color;
+  margin-right: 14rpx; display: flex; align-items: center; justify-content: center;
   font-size: 22rpx; color: #fff; flex-shrink: 0;
+  transition: all $transition-base;
 
-  &.checked { background: $success-color; border-color: $success-color; }
+  &.checked { background: $success-color; border-color: $success-color; box-shadow: 0 2rpx 12rpx rgba(16, 185, 129, 0.25); }
 }
 
 .goal-info { flex: 1; min-width: 0; }
@@ -307,11 +363,11 @@ function repeatLabel(r: string) {
 }
 
 .goal-priority {
-  font-size: 20rpx; padding: 2rpx 10rpx; border-radius: 8rpx; font-weight: 500;
+  font-size: 20rpx; padding: 4rpx 12rpx; border-radius: $radius-full; font-weight: $font-weight-medium;
 
-  &.pri-high { background: #FFEBEE; color: #D32F2F; }
-  &.pri-medium { background: #FFF3E0; color: #E65100; }
-  &.pri-low { background: #E8EAF6; color: #5C6BC0; }
+  &.pri-high { background: $error-lightest; color: #B91C1C; }
+  &.pri-medium { background: $warning-lightest; color: #B45309; }
+  &.pri-low { background: $primary-lightest; color: $primary-dark; }
 }
 
 .goal-title { font-size: 28rpx; color: $text-primary; flex: 1;
@@ -319,29 +375,34 @@ function repeatLabel(r: string) {
 }
 
 .goal-repeat {
-  font-size: 20rpx; background: #E8F5E9; color: #388E3C;
-  padding: 2rpx 10rpx; border-radius: 8rpx; white-space: nowrap;
+  font-size: 20rpx; background: $success-lightest; color: #047857;
+  padding: 4rpx 12rpx; border-radius: $radius-full; white-space: nowrap;
+  font-weight: $font-weight-medium;
 }
 
-.goal-meta { display: flex; gap: 16rpx; margin-top: 4rpx; }
+.goal-meta { display: flex; gap: 16rpx; margin-top: 6rpx; }
 .goal-deadline { font-size: 22rpx; color: $text-hint; }
-.goal-streak { font-size: 22rpx; color: #FF9800; }
+.goal-streak { font-size: 22rpx; color: $warning-color; font-weight: $font-weight-medium; }
 
 .sub-tasks {
-  margin-top: 8rpx; margin-left: 52rpx;
-  background: #fff; border-radius: 8rpx; padding: 8rpx 12rpx;
+  margin-top: 10rpx; margin-left: 56rpx;
+  background: $card-bg; border-radius: $radius-sm;
+  padding: 10rpx 16rpx;
+  box-shadow: $shadow-sm;
 }
 
 .sub-task-item {
-  display: flex; align-items: center; padding: 10rpx 0;
+  display: flex; align-items: center; padding: 12rpx 0;
 
-  &:not(:last-child) { border-bottom: 1rpx solid #F0F0F0; }
+  &:not(:last-child) { border-bottom: 1rpx solid $border-light; }
 }
 
 .sub-check {
-  width: 32rpx; height: 32rpx; border-radius: 6rpx; border: 2rpx solid #D0D0D0;
+  width: 34rpx; height: 34rpx; border-radius: 8rpx;
+  border: 2rpx solid $border-color;
   margin-right: 12rpx; display: flex; align-items: center; justify-content: center;
   font-size: 18rpx; color: #fff; flex-shrink: 0;
+  transition: all $transition-base;
 
   &.checked { background: $success-color; border-color: $success-color; }
 }
@@ -351,75 +412,137 @@ function repeatLabel(r: string) {
 }
 
 .add-goal-btn {
-  margin-top: 16rpx; text-align: center; padding: 16rpx;
-  border: 2rpx dashed #D0D0D0; border-radius: 10rpx;
+  margin-top: 20rpx; text-align: center; padding: 18rpx;
+  border: 2rpx dashed $primary-lighter;
+  border-radius: $radius-sm;
   font-size: 26rpx; color: $primary-color;
+  font-weight: $font-weight-medium;
+  transition: all $transition-base;
+
+  &:active {
+    background: $primary-lightest;
+  }
 }
 
 .empty-state {
-  display: flex; flex-direction: column; align-items: center; padding: 120rpx 40rpx;
+  @extend .empty-state-base;
 
-  .empty-icon { font-size: 80rpx; margin-bottom: 24rpx; }
-  .empty-title { font-size: 32rpx; font-weight: 600; margin-bottom: 12rpx; }
-  .empty-desc { font-size: 26rpx; color: $text-hint; margin-bottom: 40rpx; }
+  .empty-icon { font-size: 88rpx; margin-bottom: 28rpx; }
+  .empty-title {
+    font-size: 32rpx;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+    margin-bottom: 12rpx;
+  }
+  .empty-desc {
+    font-size: 26rpx;
+    color: $text-hint;
+    margin-bottom: 40rpx;
+  }
 }
 
 .modal-overlay {
-  position: fixed; top:0;left:0;right:0;bottom:0; z-index:100;
-  background:rgba(0,0,0,0.5); display:flex; align-items:flex-end; justify-content:center;
+  @extend .modal-mask;
 }
 
-.modal-content {
-  background:#fff; border-radius:24rpx 24rpx 0 0; padding:40rpx 32rpx 60rpx; width:100%;
+.modal-content, .goal-sheet {
+  background: $card-bg;
+  border-radius: $radius-2xl $radius-2xl 0 0;
+  padding: 44rpx $spacing-lg 60rpx;
+  width: 100%;
+  box-shadow: $shadow-xl;
+  animation: slideUp 0.3s ease;
 }
 
 .goal-sheet {
-  background:#fff; border-radius:24rpx 24rpx 0 0; padding:40rpx 32rpx 60rpx; width:100%;
   max-height: 80vh; overflow-y: auto;
 }
 
-.modal-title { font-size:32rpx; font-weight:600; display:block; margin-bottom:24rpx; text-align:center; }
-
-.modal-input {
-  background:#F5F5F5; border-radius:12rpx; padding:20rpx 24rpx; font-size:28rpx;
-  margin-bottom: 20rpx; width: 100%; box-sizing: border-box;
+.modal-title {
+  font-size: 34rpx;
+  font-weight: $font-weight-bold;
+  color: $text-primary;
+  display: block;
+  margin-bottom: 28rpx;
+  text-align: center;
 }
 
-.select-label { font-size:26rpx; color:$text-secondary; display:block; margin-bottom:16rpx; }
+.modal-input, .form-input-flex {
+  background: #F8FAFC;
+  border-radius: $radius-sm;
+  padding: 22rpx 24rpx;
+  font-size: 28rpx;
+  margin-bottom: 20rpx;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1rpx solid $border-color;
+}
 
-.period-options { display:flex; gap:16rpx; margin-bottom:32rpx; }
+.select-label { font-size: 26rpx; color: $text-secondary; display: block; margin-bottom: 16rpx; }
+
+.period-options { display: flex; gap: 16rpx; margin-bottom: 32rpx; }
 
 .period-opt {
-  flex:1; text-align:center; padding:16rpx; border-radius:12rpx;
-  background:#F5F5F5; font-size:24rpx; color:$text-secondary;
+  flex: 1; text-align: center; padding: 18rpx; border-radius: $radius-sm;
+  background: #F8FAFC; font-size: 24rpx; color: $text-secondary;
+  border: 1rpx solid $border-color;
+  transition: all $transition-base;
 
-  &.active { background:#E3F2FD; color:$primary-color; font-weight:500; }
+  &.active {
+    background: $primary-lightest;
+    color: $primary-color;
+    font-weight: $font-weight-semibold;
+    border-color: $primary-lighter;
+  }
 }
 
-.modal-actions { display:flex; gap:24rpx; margin-top: 24rpx; }
+.modal-actions { display: flex; gap: 24rpx; margin-top: 28rpx; }
 
 .modal-btn {
-  flex:1; text-align:center; padding:20rpx; border-radius:40rpx; font-size:28rpx;
+  flex: 1; text-align: center; padding: 22rpx; border-radius: $radius-full;
+  font-size: 28rpx; font-weight: $font-weight-medium;
+  transition: all $transition-base;
+
+  &:active { opacity: 0.85; }
 }
 
-.cancel { background:#F5F5F5; color:$text-secondary; }
-.confirm { background:$primary-color; color:#fff; }
+.cancel { background: #F3F4F6; color: $text-secondary; }
+.confirm { background: $gradient-primary; color: #fff; box-shadow: $shadow-glow; }
 
 .form-row { display: flex; align-items: center; margin-bottom: 20rpx; }
-.form-label { font-size: 26rpx; color: $text-secondary; width: 140rpx; flex-shrink: 0; }
-.form-input-half { flex: 1; background: #F5F5F5; border-radius: 8rpx; padding: 14rpx 16rpx; font-size: 26rpx; }
+.form-label { font-size: 26rpx; color: $text-secondary; width: 140rpx; flex-shrink: 0; font-weight: $font-weight-medium; }
+.form-input-half {
+  flex: 1;
+  background: #F8FAFC;
+  border: 1rpx solid $border-color;
+  border-radius: $radius-sm;
+  padding: 16rpx 18rpx;
+  font-size: 26rpx;
+}
 
 .chip-group { display: flex; gap: 12rpx; }
 .chip {
-  padding: 10rpx 20rpx; border-radius: 20rpx; background: #F5F5F5;
-  font-size: 24rpx; color: $text-secondary;
+  padding: 12rpx 22rpx; border-radius: $radius-full;
+  background: #F8FAFC; font-size: 24rpx;
+  color: $text-secondary; border: 1rpx solid $border-color;
+  transition: all $transition-base;
 
-  &.active { background: #E3F2FD; color: $primary-color; font-weight: 500; }
+  &.active {
+    background: $primary-lightest;
+    color: $primary-dark;
+    font-weight: $font-weight-semibold;
+    border-color: $primary-lighter;
+  }
 }
 
 .sub-step-list { margin-bottom: 16rpx; }
-.sub-step-row { display: flex; align-items: center; margin-bottom: 10rpx; }
-.form-input-flex { flex: 1; background: #F5F5F5; border-radius: 8rpx; padding: 14rpx 16rpx; font-size: 26rpx; }
-.sub-remove { width: 44rpx; height: 44rpx; display: flex; align-items: center; justify-content: center; color: #D32F2F; font-size: 24rpx; }
-.sub-add { font-size: 24rpx; color: $primary-color; padding: 10rpx 0; }
+.sub-step-row { display: flex; align-items: center; margin-bottom: 12rpx; }
+.sub-remove {
+  width: 48rpx; height: 48rpx; display: flex; align-items: center; justify-content: center;
+  color: $error-color; font-size: 26rpx; font-weight: $font-weight-bold;
+}
+.sub-add {
+  font-size: 24rpx; color: $primary-color; padding: 12rpx 0;
+  font-weight: $font-weight-medium;
+}
 </style>

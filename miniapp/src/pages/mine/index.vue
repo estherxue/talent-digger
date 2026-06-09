@@ -157,21 +157,38 @@ const handleLogout = () => {
 <style lang="scss" scoped>
 @use '@/styles/common.scss' as *;
 
-.page-mine { padding-bottom: 40rpx; }
+.page-mine {
+  padding-bottom: 40rpx;
+  min-height: 100vh;
+  background: $gradient-hero;
+}
 
 .user-card {
-  background: linear-gradient(135deg, #4A90D9, #7AB8F5);
-  padding: 60rpx 32rpx 40rpx;
+  background: $gradient-primary;
+  padding: 64rpx $spacing-lg 44rpx;
   display: flex;
   align-items: center;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -30rpx; right: -30rpx;
+    width: 160rpx; height: 160rpx;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    pointer-events: none;
+  }
 
   .avatar-wrapper {
-    width: 120rpx;
-    height: 120rpx;
+    width: 128rpx;
+    height: 128rpx;
     border-radius: 50%;
-    border: 4rpx solid rgba(255,255,255,0.4);
+    border: 4rpx solid rgba(255,255,255,0.35);
     overflow: hidden;
-    margin-right: 24rpx;
+    margin-right: 28rpx;
+    box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.12);
 
     .avatar {
       width: 100%;
@@ -184,10 +201,11 @@ const handleLogout = () => {
 
     .nickname {
       color: #fff;
-      font-size: 36rpx;
-      font-weight: 600;
+      font-size: 38rpx;
+      font-weight: $font-weight-bold;
       display: block;
       margin-bottom: 6rpx;
+      letter-spacing: $letter-spacing-title;
     }
 
     .user-id {
@@ -196,20 +214,25 @@ const handleLogout = () => {
     }
 
     .guest-tag {
-      background: rgba(255,255,255,0.2);
-      color: #fff;
+      @include glass-dark;
       font-size: 22rpx;
-      padding: 4rpx 16rpx;
-      border-radius: 20rpx;
+      padding: 6rpx 18rpx;
+      border-radius: $radius-full;
     }
   }
 
   .edit-btn {
     color: #fff;
     font-size: 26rpx;
-    padding: 10rpx 24rpx;
-    border: 2rpx solid rgba(255,255,255,0.5);
-    border-radius: 32rpx;
+    padding: 12rpx 28rpx;
+    border: 2rpx solid rgba(255,255,255,0.4);
+    border-radius: $radius-full;
+    font-weight: $font-weight-medium;
+    transition: all $transition-base;
+
+    &:active {
+      background: rgba(255,255,255,0.15);
+    }
   }
 }
 

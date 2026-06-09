@@ -10,7 +10,7 @@
       "path": "pages/index/index",
       "style": {
         "navigationBarTitleText": "Talent Digger",
-        "navigationBarBackgroundColor": "#4A90D9",
+        "navigationBarBackgroundColor": "#6366F1",
         "navigationBarTextStyle": "white"
       }
     },
@@ -18,7 +18,7 @@
       "path": "pages/login/login",
       "style": {
         "navigationBarTitleText": "登录",
-        "navigationBarBackgroundColor": "#4A90D9",
+        "navigationBarBackgroundColor": "#6366F1",
         "navigationBarTextStyle": "white"
       }
     },
@@ -74,12 +74,12 @@
   "globalStyle": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "Talent Digger",
-    "navigationBarBackgroundColor": "#F8F9FA",
-    "backgroundColor": "#F8F9FA"
+    "navigationBarBackgroundColor": "#F5F3FF",
+    "backgroundColor": "#F5F3FF"
   },
   "tabBar": {
-    "color": "#999999",
-    "selectedColor": "#4A90D9",
+    "color": "#9CA3AF",
+    "selectedColor": "#6366F1",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
     "list": [

@@ -329,188 +329,293 @@ onShareAppMessage(() => {
 @use '@/styles/common.scss' as *;
 
 .page-report {
-  padding-bottom: 40rpx;
+  padding-bottom: 60rpx;
+  min-height: 100vh;
+  background: $gradient-hero;
 }
 
+/* ═══ Empty State ═══ */
+.empty-state {
+  @extend .empty-state-base;
+
+  .empty-icon { font-size: 96rpx; margin-bottom: 28rpx; }
+  .empty-text {
+    font-size: 32rpx;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+    display: block;
+    margin-bottom: 12rpx;
+  }
+  .empty-hint {
+    font-size: 26rpx;
+    color: $text-hint;
+    display: block;
+    margin-bottom: 44rpx;
+  }
+  .empty-title {
+    font-size: 32rpx;
+    font-weight: $font-weight-semibold;
+    margin-bottom: 12rpx;
+  }
+  .empty-desc {
+    font-size: 26rpx;
+    color: $text-hint;
+    margin-bottom: 40rpx;
+  }
+
+  .go-test-btn {
+    background: $gradient-primary;
+    color: #fff;
+    padding: 22rpx 72rpx;
+    border-radius: $radius-full;
+    font-size: 28rpx;
+    font-weight: $font-weight-medium;
+    box-shadow: $shadow-glow;
+  }
+}
+
+/* ═══ Report Header ═══ */
 .report-header {
-  background: linear-gradient(135deg, #4A90D9, #7AB8F5);
-  padding: 48rpx 32rpx;
+  background: $gradient-primary;
+  padding: 52rpx $spacing-lg 44rpx;
   color: #fff;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -40rpx;
+    right: -40rpx;
+    width: 200rpx;
+    height: 200rpx;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    pointer-events: none;
+  }
 
   .report-badge {
-    background: rgba(255,255,255,0.2);
+    @include glass-dark;
     display: inline-block;
     padding: 8rpx 24rpx;
-    border-radius: 20rpx;
+    border-radius: $radius-full;
     margin-bottom: 16rpx;
 
     .badge-text {
       font-size: 24rpx;
+      font-weight: $font-weight-medium;
     }
   }
 
   .report-test-name {
-    font-size: 40rpx;
-    font-weight: 700;
+    font-size: 42rpx;
+    font-weight: $font-weight-bold;
     display: block;
     margin-bottom: 8rpx;
+    letter-spacing: 0.01em;
+    position: relative;
   }
 
   .report-date {
     font-size: 24rpx;
     opacity: 0.8;
+    position: relative;
   }
 }
 
+/* ═══ Score Summary ═══ */
 .score-summary {
-  background: #fff;
-  margin: -24rpx 24rpx 24rpx;
-  border-radius: 16rpx;
-  padding: 32rpx;
-  box-shadow: $shadow;
+  @include glass;
+  margin: -28rpx $spacing-md $spacing-md;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-lg;
   position: relative;
   z-index: 1;
 
   .summary-title {
     font-size: 30rpx;
-    font-weight: 600;
-    margin-bottom: 24rpx;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+    margin-bottom: 28rpx;
+    display: flex;
+    align-items: center;
+    gap: 8rpx;
+
+    &::before {
+      content: '📊';
+      font-size: 28rpx;
+    }
   }
 }
 
+/* ═══ Dimension Item ═══ */
 .dimension-item {
-  margin-bottom: 20rpx;
+  margin-bottom: 22rpx;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 
   .dimension-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 8rpx;
+    align-items: baseline;
+    margin-bottom: 10rpx;
   }
 
   .dimension-name {
     font-size: 26rpx;
     color: $text-secondary;
+    font-weight: $font-weight-medium;
   }
 
   .dimension-score {
     font-size: 26rpx;
-    font-weight: 600;
+    font-weight: $font-weight-bold;
+    letter-spacing: 0.02em;
 
-    &.level-high { color: $success-color; }
-    &.level-medium { color: $warning-color; }
-    &.level-low { color: $error-color; }
+    &.level-high { color: #059669; }
+    &.level-medium { color: #D97706; }
+    &.level-low { color: #DC2626; }
   }
 }
 
 .dimension-bar {
-  height: 12rpx;
-  background: #F0F0F0;
-  border-radius: 6rpx;
+  height: 14rpx;
+  background: #F3F4F6;
+  border-radius: 7rpx;
   overflow: hidden;
 
   .bar-inner {
     height: 100%;
-    border-radius: 6rpx;
-    transition: width 0.5s ease;
+    border-radius: 7rpx;
+    transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
 
-    &.level-high { background: $success-color; }
-    &.level-medium { background: $warning-color; }
-    &.level-low { background: #E0E0E0; }
+    &.level-high {
+      background: $gradient-success;
+      box-shadow: 0 2rpx 8rpx rgba(16, 185, 129, 0.3);
+    }
+    &.level-medium {
+      background: $gradient-warning;
+      box-shadow: 0 2rpx 8rpx rgba(245, 158, 11, 0.3);
+    }
+    &.level-low {
+      background: linear-gradient(90deg, #D1D5DB, #9CA3AF);
+    }
   }
 }
 
+/* ═══ Report Section ═══ */
 .report-section {
-  background: #fff;
-  margin: 0 24rpx 24rpx;
-  border-radius: 16rpx;
-  padding: 32rpx;
-  box-shadow: $shadow;
+  background: $card-bg;
+  margin: 0 $spacing-md $spacing-md;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-md;
 
   .section-title {
     font-size: 30rpx;
-    font-weight: 600;
-    margin-bottom: 8rpx;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+    margin-bottom: 10rpx;
     display: flex;
     flex-direction: column;
+    letter-spacing: 0.01em;
   }
 
   .section-subtitle {
     font-size: 22rpx;
     color: $primary-color;
-    font-weight: 400;
+    font-weight: $font-weight-normal;
     margin-top: 4rpx;
-    margin-bottom: 16rpx;
+    margin-bottom: 20rpx;
   }
 }
 
+/* ═══ Summary Card ═══ */
 .summary-card {
-  background: #F8F9FA;
-  border-radius: 12rpx;
-  padding: 24rpx;
+  background: linear-gradient(135deg, #F0F4FF, #EDE9FE);
+  border-radius: $radius-md;
+  padding: 28rpx;
+  border-left: 4rpx solid $primary-color;
 
   .summary-text {
     font-size: 28rpx;
     color: $text-secondary;
-    line-height: 1.8;
+    line-height: $line-height-relaxed;
   }
 }
 
+/* ═══ Suggestions ═══ */
 .suggestion-item {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 16rpx;
+  margin-bottom: 18rpx;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 
   .suggestion-dot {
-    width: 40rpx;
-    height: 40rpx;
-    border-radius: 50%;
-    background: #E3F2FD;
-    color: $primary-color;
+    width: 44rpx;
+    height: 44rpx;
+    border-radius: $radius-sm;
+    background: $gradient-primary-soft;
+    color: #fff;
     font-size: 22rpx;
+    font-weight: $font-weight-bold;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 16rpx;
+    margin-right: 18rpx;
     flex-shrink: 0;
+    box-shadow: $shadow-glow;
   }
 
   .suggestion-text {
     font-size: 28rpx;
     color: $text-secondary;
-    line-height: 1.6;
+    line-height: $line-height-relaxed;
+    flex: 1;
+    min-width: 0;
   }
 }
 
+/* ═══ Career List ═══ */
 .career-item {
-  background: #F8FAFE;
-  border-radius: 14rpx;
-  padding: 24rpx;
+  background: linear-gradient(135deg, #FAFBFF, #F5F3FF);
+  border-radius: $radius-md;
+  padding: 26rpx;
   margin-bottom: 16rpx;
-  border: 1rpx solid #E8EEF6;
-  transition: all 0.2s;
+  border: 1rpx solid #E8ECF8;
+  transition: all $transition-base;
 
   &:last-child { margin-bottom: 0; }
 
   &:active {
-    background: #EEF3FB;
-    border-color: $primary-color;
+    border-color: $primary-lighter;
+    box-shadow: $shadow-glow;
+    transform: scale(0.985);
   }
 
   .career-top {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 16rpx;
+    margin-bottom: 18rpx;
   }
 
   .career-info {
     flex: 1;
-    margin-right: 20rpx;
+    margin-right: 24rpx;
     min-width: 0;
 
     .career-name {
       font-size: 28rpx;
-      font-weight: 600;
+      font-weight: $font-weight-semibold;
+      color: $text-primary;
       display: block;
       margin-bottom: 4rpx;
     }
@@ -518,7 +623,7 @@ onShareAppMessage(() => {
     .career-reason {
       font-size: 22rpx;
       color: $text-hint;
-      line-height: 1.4;
+      line-height: 1.5;
     }
   }
 
@@ -527,9 +632,12 @@ onShareAppMessage(() => {
     flex-shrink: 0;
 
     .match-score {
-      font-size: 34rpx;
-      font-weight: 700;
-      color: $primary-color;
+      font-size: 36rpx;
+      font-weight: $font-weight-bold;
+      background: $gradient-primary;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
       display: block;
     }
 
@@ -542,17 +650,18 @@ onShareAppMessage(() => {
   .career-bottom {
     display: flex;
     justify-content: flex-end;
-    padding-top: 14rpx;
-    border-top: 1rpx dashed #DDE4EF;
+    padding-top: 16rpx;
+    border-top: 1rpx dashed #DDE4F0;
   }
 
   .career-model-btn {
     display: flex;
     align-items: center;
-    background: linear-gradient(135deg, #FFF7E6, #FFF3D6);
-    border: 1rpx solid #F0C060;
-    border-radius: 28rpx;
-    padding: 10rpx 22rpx;
+    background: linear-gradient(135deg, #FEF9C3, #FEF3C7);
+    border: 1rpx solid #FCD34D;
+    border-radius: $radius-full;
+    padding: 10rpx 24rpx;
+    box-shadow: 0 2rpx 12rpx rgba(251, 191, 36, 0.12);
 
     .model-btn-icon {
       font-size: 24rpx;
@@ -561,31 +670,37 @@ onShareAppMessage(() => {
 
     .model-btn-text {
       font-size: 24rpx;
-      color: #B8860B;
-      font-weight: 500;
+      color: #B45309;
+      font-weight: $font-weight-medium;
     }
 
     .model-btn-arrow {
-      font-size: 24rpx;
-      color: #D4A030;
+      font-size: 22rpx;
+      color: #D97706;
       margin-left: 6rpx;
     }
   }
 }
 
+/* ═══ Bottom Actions ═══ */
 .bottom-actions {
   display: flex;
   gap: 24rpx;
-  padding: 0 24rpx;
+  padding: 0 $spacing-md;
 
   .action-btn {
     flex: 1;
     text-align: center;
     padding: 24rpx;
-    border-radius: 48rpx;
+    border-radius: $radius-full;
     font-size: 28rpx;
-    font-weight: 500;
+    font-weight: $font-weight-medium;
     line-height: 1;
+    transition: all $transition-base;
+
+    &:active {
+      transform: scale(0.97);
+    }
   }
 
   .action-btn::after {
@@ -611,41 +726,21 @@ onShareAppMessage(() => {
   .share-btn {
     background: #fff;
     color: $primary-color;
-    border: 2rpx solid $primary-color;
+    border: 2rpx solid $primary-lighter;
+
+    &:active {
+      background: $primary-lightest;
+    }
   }
 
   .plan-btn {
-    background: linear-gradient(135deg, $primary-color, $primary-light);
+    background: $gradient-primary;
     color: #fff;
-  }
-}
+    box-shadow: $shadow-glow;
 
-.empty-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 120rpx 40rpx;
-
-  .empty-icon { font-size: 80rpx; margin-bottom: 24rpx; }
-
-  .empty-title {
-    font-size: 32rpx;
-    font-weight: 600;
-    margin-bottom: 12rpx;
-  }
-
-  .empty-desc {
-    font-size: 26rpx;
-    color: $text-hint;
-    margin-bottom: 40rpx;
-  }
-
-  .go-test-btn {
-    background: $primary-color;
-    color: #fff;
-    padding: 20rpx 64rpx;
-    border-radius: 40rpx;
-    font-size: 28rpx;
+    &:active {
+      opacity: 0.85;
+    }
   }
 }
 </style>

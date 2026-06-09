@@ -33,8 +33,21 @@ onUnhandledRejection((res: any) => {
 
 <style>
 page {
-  background-color: #f8f9fa;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-  color: #333;
+  background-color: #F5F3FF;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  color: #1E1B4B;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth scrolling for scroll-views */
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* Theme transition for all elements */
+view, text, button, image, input, textarea {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 </style>

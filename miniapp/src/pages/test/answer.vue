@@ -181,63 +181,87 @@ async function confirmSubmit() {
   background: #fff;
 }
 
+/* ═══ Test Header ═══ */
 .test-header {
-  padding: 24rpx 32rpx 12rpx;
+  padding: 28rpx $spacing-lg 16rpx;
   background: #fff;
 
   .test-title {
     font-size: 32rpx;
-    font-weight: 700;
+    font-weight: $font-weight-semibold;
     color: $text-primary;
+    letter-spacing: 0.01em;
   }
 }
 
+/* ═══ Progress Bar ═══ */
 .progress-bar {
   height: 6rpx;
-  background: #E8E8E8;
+  background: #F3F4F6;
+  border-radius: 3rpx;
+  margin: 0 $spacing-lg;
 
   .progress-inner {
     height: 100%;
-    background: linear-gradient(90deg, $primary-color, $primary-light);
-    transition: width 0.3s ease;
+    background: $gradient-primary;
+    border-radius: 3rpx;
+    transition: width $transition-smooth;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: -4rpx;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 12rpx;
+      height: 12rpx;
+      background: $primary-color;
+      border-radius: 50%;
+      box-shadow: 0 0 8rpx rgba(99, 102, 241, 0.4);
+    }
   }
 }
 
+/* ═══ Question Area ═══ */
 .question-area {
   flex: 1;
-  padding: 40rpx 32rpx;
+  padding: 44rpx $spacing-lg;
 }
 
 .question-number {
-  margin-bottom: 32rpx;
+  margin-bottom: 36rpx;
 
   .current {
-    font-size: 48rpx;
-    font-weight: 700;
+    font-size: 56rpx;
+    font-weight: $font-weight-bold;
     color: $primary-color;
+    letter-spacing: 0.02em;
   }
 
   .total {
     font-size: 28rpx;
     color: $text-hint;
+    font-weight: $font-weight-normal;
   }
 }
 
 .question-content {
-  margin-bottom: 48rpx;
+  margin-bottom: 52rpx;
 
   .question-text {
     font-size: 34rpx;
-    line-height: 1.6;
+    line-height: $line-height-relaxed;
     color: $text-primary;
-    font-weight: 500;
+    font-weight: $font-weight-medium;
   }
 }
 
+/* ═══ Options ═══ */
 .options-list {
   display: flex;
   flex-direction: column;
-  gap: 20rpx;
+  gap: 18rpx;
 }
 
 .option-item {
@@ -245,88 +269,114 @@ async function confirmSubmit() {
   align-items: flex-start;
   padding: 28rpx 24rpx;
   border: 2rpx solid $border-color;
-  border-radius: 12rpx;
-  transition: all 0.2s;
+  border-radius: $radius-md;
+  transition: all $transition-base;
+  background: $card-bg;
+  position: relative;
+
+  &:active {
+    transform: scale(0.985);
+  }
 
   &.selected {
     border-color: $primary-color;
-    background: #F0F7FF;
+    background: linear-gradient(135deg, #EEF2FF, #EDE9FE);
+    box-shadow: 0 2rpx 16rpx rgba(99, 102, 241, 0.1);
   }
 
   .option-label {
-    width: 48rpx;
-    height: 48rpx;
-    border-radius: 50%;
-    background: #F0F0F0;
+    width: 52rpx;
+    height: 52rpx;
+    border-radius: $radius-sm;
+    background: #F3F4F6;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 24rpx;
-    font-weight: 600;
-    color: $text-secondary;
+    font-weight: $font-weight-semibold;
+    color: $text-hint;
     margin-right: 20rpx;
     flex-shrink: 0;
+    transition: all $transition-base;
   }
 
   &.selected .option-label {
-    background: $primary-color;
+    background: $gradient-primary;
     color: #fff;
+    box-shadow: $shadow-glow;
   }
 
   .option-text {
     font-size: 28rpx;
     color: $text-primary;
-    line-height: 1.5;
+    line-height: 1.55;
+    flex: 1;
+    min-width: 0;
   }
 }
 
+/* ═══ Bottom Actions ═══ */
 .bottom-actions {
   display: flex;
   justify-content: center;
-  padding: 24rpx 32rpx 48rpx;
+  padding: 24rpx $spacing-lg 48rpx;
   gap: 24rpx;
 }
 
 .action-btn {
-  padding: 20rpx 64rpx;
-  border-radius: 48rpx;
+  padding: 22rpx 72rpx;
+  border-radius: $radius-full;
   font-size: 28rpx;
-  font-weight: 500;
+  font-weight: $font-weight-medium;
+  transition: all $transition-base;
 }
 
 .prev-btn {
-  background: #F0F0F0;
+  background: #F3F4F6;
   color: $text-secondary;
+
+  &:active {
+    background: #E5E7EB;
+  }
 }
 
 .next-btn, .submit-btn {
-  background: linear-gradient(135deg, $primary-color, $primary-light);
+  background: $gradient-primary;
   color: #fff;
+  box-shadow: $shadow-glow;
+
+  &:active {
+    opacity: 0.85;
+  }
 }
 
-/* 提交确认弹窗 */
+/* ═══ Confirm Modal ═══ */
 .modal-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.5);
+  background: rgba(15, 23, 42, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 100;
+  animation: fadeIn 0.2s ease;
 }
 
 .modal-content {
   width: 600rpx;
   background: #fff;
-  border-radius: 20rpx;
-  padding: 48rpx 40rpx;
+  border-radius: $radius-2xl;
+  padding: 48rpx 44rpx;
   text-align: center;
+  box-shadow: $shadow-xl;
+  animation: slideUp 0.3s ease;
 
   .modal-title {
     font-size: 34rpx;
-    font-weight: 600;
+    font-weight: $font-weight-bold;
     display: block;
     margin-bottom: 16rpx;
+    color: $text-primary;
   }
 
   .modal-desc {
@@ -334,10 +384,11 @@ async function confirmSubmit() {
     color: $text-secondary;
     display: block;
     margin-bottom: 40rpx;
+    line-height: $line-height-relaxed;
   }
 
-  .unanswered { color: $warning-color; }
-  .all-answered { color: $success-color; }
+  .unanswered { color: $warning-color; font-weight: $font-weight-medium; }
+  .all-answered { color: $success-color; font-weight: $font-weight-medium; }
 }
 
 .modal-actions {
@@ -347,26 +398,32 @@ async function confirmSubmit() {
 
 .modal-btn {
   flex: 1;
-  padding: 20rpx;
-  border-radius: 40rpx;
+  padding: 22rpx;
+  border-radius: $radius-full;
   font-size: 28rpx;
+  font-weight: $font-weight-medium;
 }
 
 .cancel-btn {
-  background: #F0F0F0;
+  background: #F3F4F6;
   color: $text-secondary;
+
+  &:active { background: #E5E7EB; }
 }
 
 .confirm-btn {
-  background: $primary-color;
+  background: $gradient-primary;
   color: #fff;
+  box-shadow: $shadow-glow;
+
+  &:active { opacity: 0.85; }
 }
 
-/* Loading */
+/* ═══ Loading Overlay ═══ */
 .loading-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(255,255,255,0.9);
+  background: rgba(255, 255, 255, 0.92);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -379,20 +436,31 @@ async function confirmSubmit() {
   .loading-spinner {
     width: 80rpx;
     height: 80rpx;
-    border: 6rpx solid #E8E8E8;
+    border: 5rpx solid #E5E7EB;
     border-top-color: $primary-color;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
-    margin: 0 auto 24rpx;
+    margin: 0 auto 28rpx;
   }
 
   .loading-text {
     font-size: 28rpx;
     color: $text-secondary;
+    font-weight: $font-weight-medium;
   }
 }
 
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30rpx); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>

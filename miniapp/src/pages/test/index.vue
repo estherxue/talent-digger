@@ -71,76 +71,123 @@ const startTest = (testId: string) => {
 @use '@/styles/common.scss' as *;
 
 .page-test {
-  padding: 0 24rpx 40rpx;
+  padding: 0 $spacing-md 60rpx;
+  min-height: 100vh;
+  background: $gradient-hero;
 }
 
+/* Page Header */
 .page-header {
-  padding: 40rpx 8rpx 32rpx;
+  padding: 48rpx 8rpx 36rpx;
 
   .page-title {
-    font-size: 40rpx;
-    font-weight: 700;
+    font-size: 42rpx;
+    font-weight: $font-weight-bold;
     color: $text-primary;
     display: block;
-    margin-bottom: 8rpx;
+    margin-bottom: 10rpx;
+    letter-spacing: $letter-spacing-title;
   }
 
   .page-desc {
     font-size: 26rpx;
     color: $text-hint;
+    line-height: $line-height-relaxed;
   }
 }
 
+/* Section */
 .section {
-  margin-bottom: 32rpx;
+  margin-bottom: 36rpx;
 
   &-title {
     font-size: 30rpx;
-    font-weight: 600;
+    font-weight: $font-weight-semibold;
     color: $text-primary;
     margin-bottom: 20rpx;
-    padding-left: 8rpx;
+    padding-left: 12rpx;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6rpx;
+      height: 28rpx;
+      background: $gradient-primary;
+      border-radius: 3rpx;
+    }
   }
 }
 
+/* Test Card */
 .test-card {
+  position: relative;
   background: $card-bg;
-  border-radius: 16rpx;
-  padding: 32rpx;
-  box-shadow: $shadow;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-md;
   margin-bottom: 20rpx;
+  transition: all $transition-smooth;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4rpx;
+    background: $gradient-primary;
+    border-radius: $radius-lg $radius-lg 0 0;
+    opacity: 0;
+    transition: opacity $transition-base;
+  }
+
+  &:active {
+    transform: scale(0.985);
+    box-shadow: $shadow-sm;
+  }
+
+  &:active::after {
+    opacity: 1;
+  }
 
   &-header {
     display: flex;
     align-items: center;
-    margin-bottom: 24rpx;
+    margin-bottom: 28rpx;
   }
 
   .test-icon {
-    width: 80rpx;
-    height: 80rpx;
-    border-radius: 16rpx;
+    width: 88rpx;
+    height: 88rpx;
+    border-radius: $radius-lg;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 40rpx;
-    margin-right: 20rpx;
+    font-size: 44rpx;
+    margin-right: 24rpx;
+    box-shadow: $shadow-sm;
   }
 
   .talent-icon {
-    background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+    background: $gradient-primary-soft;
   }
 
   .holland-icon {
-    background: linear-gradient(135deg, #FFF3E0, #FFE0B2);
+    background: linear-gradient(135deg, #FEF3C7, #FDE68A);
   }
 
   .test-info {
     flex: 1;
+    min-width: 0;
 
     .test-name {
       font-size: 30rpx;
-      font-weight: 600;
+      font-weight: $font-weight-semibold;
       color: $text-primary;
       display: block;
       margin-bottom: 6rpx;
@@ -149,6 +196,7 @@ const startTest = (testId: string) => {
     .test-dimensions {
       font-size: 24rpx;
       color: $text-hint;
+      line-height: $line-height-relaxed;
     }
   }
 
@@ -164,17 +212,23 @@ const startTest = (testId: string) => {
 
     .meta-item {
       font-size: 22rpx;
-      color: $text-secondary;
+      color: $text-hint;
     }
   }
 
   .start-btn {
-    background: linear-gradient(135deg, $primary-color, $primary-light);
+    background: $gradient-primary;
     color: #fff;
     font-size: 26rpx;
-    padding: 14rpx 36rpx;
-    border-radius: 32rpx;
-    font-weight: 500;
+    padding: 16rpx 40rpx;
+    border-radius: $radius-full;
+    font-weight: $font-weight-medium;
+    box-shadow: $shadow-glow;
+    transition: all $transition-base;
+
+    &:active {
+      opacity: 0.85;
+    }
   }
 }
 </style>
