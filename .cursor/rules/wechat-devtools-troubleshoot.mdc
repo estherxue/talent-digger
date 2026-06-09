@@ -1,0 +1,38 @@
+---
+description: WeChat DevTools deployment troubleshooting — when "上传并部署" is missing, clear cache
+alwaysApply: true
+---
+
+# WeChat DevTools Deployment Troubleshooting
+
+## When "上传并部署" option is not found
+
+If right-clicking a cloud function folder in WeChat DevTools does NOT show "上传并部署：云端安装依赖" in the context menu:
+
+### Fix: Clear DevTools cache
+
+1. In WeChat DevTools, go to the top menu bar
+2. Click **工具** (Tools) → **清除缓存** (Clear Cache)
+3. In the dialog, select ALL cache types:
+   - ☑️ 文件缓存 (File cache)
+   - ☑️ 数据缓存 (Data cache)
+   - ☑️ 授权数据 (Auth data)
+   - ☑️ 网络缓存 (Network cache)
+   - ☑️ 登录状态 (Login state)
+4. Click **清除** (Clear)
+5. **Close and reopen** WeChat DevTools
+6. Reopen the project → the "上传并部署" option should now appear in the right-click menu on cloud function folders
+
+### Alternative: Restart and re-enable
+
+If clearing cache doesn't work:
+1. Close WeChat DevTools completely
+2. Reopen and load the project
+3. Click the **云开发** (Cloud Development) button in the top toolbar to reinitialize the cloud environment
+4. Right-click cloud function folders again
+
+### Quick checklist before deploying
+
+- [ ] `project.config.json` has correct `appid` (not `touristappid`)
+- [ ] `cloudfunctionRoot` points to `cloudfunctions/`
+- [ ] Each cloud function folder contains `index.js` + `package.json` + `config.json`
