@@ -29,8 +29,16 @@ const COLLECTIONS = [
 
 const SEED_FILES = [
   { file: 'seed_tests.json', collection: 'tests' },
-  { file: 'seed_questions_talent.json', collection: 'questions', transform: (data) => data.questions },
-  { file: 'seed_questions_holland.json', collection: 'questions', transform: (data) => data.questions },
+  {
+    file: 'seed_questions_talent.json',
+    collection: 'questions',
+    transform: (data) => data.questions.map(q => ({ ...q, testId: data.testId }))
+  },
+  {
+    file: 'seed_questions_holland.json',
+    collection: 'questions',
+    transform: (data) => data.questions.map(q => ({ ...q, testId: data.testId }))
+  },
   { file: 'seed_careers.json', collection: 'career_library' }
 ]
 

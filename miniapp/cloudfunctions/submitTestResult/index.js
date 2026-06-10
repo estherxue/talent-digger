@@ -2,7 +2,6 @@
 const cloud = require('wx-server-sdk');
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 const db = cloud.database();
-const _ = db.command;
 
 // 输入校验工具
 function validateInput(testId, answers) {
@@ -69,8 +68,16 @@ exports.main = async (event, context) => {
       if (userAnswer === undefined) return;
       const scoring = q.scoring;
       if (!scoring) return;
-      Object.keys(scoring).forEach(dim => {
-        const val = scoring[dim];
+
+      // scoring is per-option: array or object keyed by option index
+      const optionScores = Array.isArray(scoring)
+        ? scoring[userAnswer]
+        : scoring[String(userAnswer)] || scoring[userAnswer];
+
+      if (!optionScores || typeof optionScores !== 'object') return;
+
+      Object.keys(optionScores).forEach(dim => {
+        const val = optionScores[dim];
         if (typeof val !== 'number') return;
         dimensionScores[dim] = (dimensionScores[dim] || 0) + val;
       });

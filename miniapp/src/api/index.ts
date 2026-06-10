@@ -87,10 +87,8 @@ export async function getTestList() {
 
 /** 获取测评题目 */
 export async function getTestQuestions(testId: string) {
-  console.log(`[getTestQuestions] 请求 testId=${testId}`)
   const res = await callCloudFunction('getTestQuestions', { testId })
   if (res.code === 0 && res.data?.questions?.length > 0) {
-    console.log(`[getTestQuestions] 云函数返回 ${res.data.questions.length} 题`)
     // 防御：检查返回的题目是否与请求的 testId 匹配
     const firstQ = res.data.questions[0]
     if (firstQ && firstQ.testId && firstQ.testId !== testId) {
@@ -98,12 +96,9 @@ export async function getTestQuestions(testId: string) {
     } else {
       return res
     }
-  } else {
-    console.log(`[getTestQuestions] 云函数不可用或无数据，使用本地 mock 数据`)
   }
   // 云函数失败时 fallback 到本地 mock 数据
   const questions = testId === 'test_holland' ? mockHollandQuestions : mockTalentQuestions
-  console.log(`[getTestQuestions] 本地数据: ${questions.length} 题 (${testId === 'test_holland' ? 'Holland' : 'Talent'})`)
   return { code: 0, message: 'ok', data: { questions: questions as any } }
 }
 
