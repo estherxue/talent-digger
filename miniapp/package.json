@@ -18,7 +18,6 @@
     "@dcloudio/uni-mp-compiler": "3.0.0-alpha-5010120260522001",
     "@dcloudio/uni-mp-vite": "3.0.0-alpha-5010120260522001",
     "@dcloudio/uni-mp-weixin": "3.0.0-alpha-5010120260522001",
-    "echarts": "^5.5.0",
     "pinia": "^2.1.0",
     "vue": "^3.4.0"
   },
