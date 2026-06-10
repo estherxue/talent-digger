@@ -48,27 +48,25 @@ export function computeDimensionScores(
 
   if (!options.normalize) return rawScores
 
-  // Normalize to 0-100
-  const result: Record<string, number> = {}
-  // Compute the max possible score per question for normalization baseline
-  let maxPossible = 0
+  // Compute per-dimension max possible score
+  const dimMaxPossible: Record<string, number> = {}
   for (const q of questions) {
-    let questionMax = 0
-    for (const scores of Object.values(q.scoring)) {
-      const sum = Object.values(scores as object).reduce((a: number, b: number) => a + b, 0)
-      if (sum > questionMax) questionMax = sum
+    const dimBest: Record<string, number> = {}
+    for (const optScores of Object.values(q.scoring)) {
+      for (const [dimKey, weight] of Object.entries(optScores as object)) {
+        dimBest[dimKey] = Math.max(dimBest[dimKey] || 0, weight as number)
+      }
     }
-    maxPossible += questionMax
+    for (const [dimKey, best] of Object.entries(dimBest)) {
+      dimMaxPossible[dimKey] = (dimMaxPossible[dimKey] || 0) + best
+    }
   }
 
-  if (maxPossible > 0) {
-    for (const [key, raw] of Object.entries(rawScores)) {
-      result[key] = Math.min(100, Math.round((raw / maxPossible) * 100))
-    }
-  } else {
-    Object.assign(result, rawScores)
+  const result: Record<string, number> = {}
+  for (const [key, raw] of Object.entries(rawScores)) {
+    const maxPossible = dimMaxPossible[key] || 1
+    result[key] = Math.min(100, Math.round((raw / maxPossible) * 100))
   }
-
   return result
 }
 

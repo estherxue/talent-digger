@@ -67,4 +67,19 @@ describe('computeDimensionScores', () => {
     const result = computeDimensionScores({ q1: 0 }, [], { normalize: false })
     expect(Object.keys(result).length).toBe(0)
   })
+
+  it('normalizes each dimension by its own max, not global max', () => {
+    // q1 scoring: {0: {logic:3, exec:1}, 1: {creativity:2}}
+    //   dimBest for q1: {logic:3, exec:1, creativity:2}
+    // q2 scoring: {0: {logic:1, memory:2}, 1: {exec:3}}
+    //   dimBest for q2: {logic:1, memory:2, exec:3}
+    // dimMaxPossible: {logic:4, exec:4, creativity:2, memory:2}
+    // answers {q1:0, q2:0}: rawScores {logic:4, exec:1, memory:2}
+    // normalized: logic=round(4/4*100)=100, exec=round(1/4*100)=25, memory=round(2/2*100)=100
+    const answers = { q1: 0, q2: 0 }
+    const result = computeDimensionScores(answers, sampleQuestions, { normalize: true })
+    expect(result.logic).toBe(100)
+    expect(result.memory).toBe(100)
+    expect(result.exec).toBe(25)
+  })
 })
